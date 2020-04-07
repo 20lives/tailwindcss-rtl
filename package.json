@@ -6,7 +6,7 @@
   "author": "20lives",
   "license": "MIT",
   "private": false,
-  "devDependencies": {
+  "dependencies": {
     "lodash": "^4.17.15",
     "tailwindcss": "^1.2.0"
   }

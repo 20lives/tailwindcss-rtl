@@ -1,6 +1,6 @@
-import _ from 'lodash';
+const _ = require('lodash');
 
-export default function prefixNegativeModifiers(base, modifier) {
+module.exports = function prefixNegativeModifiers(base, modifier) {
   if (modifier === '-') {
     return `-${base}`
   } else if (_.startsWith(modifier, '-')) {

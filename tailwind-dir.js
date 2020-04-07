@@ -1,41 +1,45 @@
-import _ from 'lodash';
-import prefixNegativeModifiers from 'util/prefixNegativeModifiers';
+const plugin = require('tailwindcss/plugin');
+const _ = require('lodash');
+const prefixNegativeModifiers = require('./util/prefixNegativeModifiers');
 
-export default function() {
-  return function({ addUtilities, e, theme, variants }) {
+module.exports = plugin(function({ addUtilities, e, theme, variants }) {
+  const paddingGenerators = [
+    (size, modifier) => ({
+      [`[dir='rtl'] .ps-${modifier}`]: { 'padding-right': `${size}` },
+      [`[dir='rtl'] .pe-${modifier}`]: { 'padding-left': `${size}` },
+      [`[dir='ltr'] .ps-${modifier}`]: { 'padding-left': `${size}` },
+      [`[dir='ltr'] .pe-${modifier}`]: { 'padding-right': `${size}` },
+    }),
+  ]
 
-    const paddingGenerators = [
-      (size, modifier) => ({
-        [`.${e(`pr-${modifier}`)}`]: { 'padding-right': `${size}` },
-        [`.${e(`pl-${modifier}`)}`]: { 'padding-left': `${size}` },
-      }),
-    ]
+  const paddingUtilities = _.flatMap(paddingGenerators, generator => {
+    return _.flatMap(theme('padding'), generator);
+  })
 
-    const paddingUtilities = _.flatMap(generators, generator => {
-      return _.flatMap(theme('padding'), generator);
-    })
+  addUtilities(paddingUtilities, variants('padding'));
 
-    addUtilities(marginUtilities, variants('padding'));
+  const marginGenerators = [
+    (size, modifier) => ({
+      [`[dir='rtl'] .${e(prefixNegativeModifiers('ms', modifier))}`]: { 'margin-right': `${size}` },
+      [`[dir='rtl'] .${e(prefixNegativeModifiers('me', modifier))}`]: { 'margin-left': `${size}` },
+      [`[dir='ltr'] .${e(prefixNegativeModifiers('ms', modifier))}`]: { 'margin-left': `${size}` },
+      [`[dir='ltr'] .${e(prefixNegativeModifiers('me', modifier))}`]: { 'margin-right': `${size}` },
+    }),
+  ]
 
-    const marginGenerators = [
-      (size, modifier) => ({
-        [`.${e(prefixNegativeModifiers('mr', modifier))}`]: { 'margin-right': `${size}` },
-        [`.${e(prefixNegativeModifiers('ml', modifier))}`]: { 'margin-left': `${size}` },
-      }),
-    ]
+  const marginUtilities = _.flatMap(marginGenerators, generator => {
+    return _.flatMap(theme('margin'), generator)
+  })
 
-    const marginUtilities = _.flatMap(generators, generator => {
-      return _.flatMap(theme('margin'), generator)
-    })
+  addUtilities(marginUtilities, variants('margin'));
 
-    addUtilities(paddingUtilities, variants('margin'));
 
-    addUtilities(
-      {
-        '.float-right': { float: 'right' },
-        '.float-left': { float: 'left' },
-      },
-      variants('float'),
-    );
-  };
-}
+  const floatUtilities = {
+    "[dir='rtl'] .float-start": { float: 'right' },
+    "[dir='rtl'] .float-end": { float: 'left' },
+    "[dir='ltr'] .float-end": { float: 'right' },
+    "[dir='ltr'] .float-start": { float: 'left' },
+  }
+
+  addUtilities(floatUtilities, variants('float'));
+});
