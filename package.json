@@ -7,6 +7,7 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "tailwindcss": "^1.2.0"
   }
 }
