@@ -1,0 +1,12 @@
+{
+  "name": "tailwind-dir",
+  "version": "0.0.1",
+  "main": "tailwind-dir.js",
+  "repository": "https://github.com/20lives/tailwind-dir",
+  "author": "20lives",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "lodash": "^4.17.15"
+  }
+}
