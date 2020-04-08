@@ -9,5 +9,8 @@
   "dependencies": {
     "lodash": "^4.17.15",
     "tailwindcss": "^1.2.0"
+  },
+  "devDependencies": {
+    "postcss": "^7.0.27"
   }
 }
