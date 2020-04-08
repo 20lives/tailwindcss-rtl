@@ -5,7 +5,14 @@
 
 ## Introduction
 
-**tailwind-dir** adding  **tailwindcss** utilities for creating bidirectional layouts.
+Internationalization in semitic languages needs more than just translating texts, you would also need to mirror the layout horizontally.
+This can be done by adding `dir="rtl"` the the layout `body` tag, but this is propably not be enough and you will need to create a diffirect style for RTL.
+
+With **tailwind-dir** plugin you will be able to support both RTL and LTR in the same style.
+
+A full example can be seen here: [workaction-rtl](https://workcation-rtl.netlify.com) [source](https://github.com/20lives/workcation)
+
+This plugin was inspired by [Elad Shechter's medium article](https://medium.com/@elad/the-best-way-to-rtl-your-website-with-sass-105e34a4298a) tackling the same issue with Sass.
 
 ## Installation
 
@@ -36,6 +43,7 @@ plugins: [
 | ------- | --------------------------- | --------------------- | --------------------- |
 | ps-[X]  | padding on start direction  | padding-left: [x]rem  | pedding-right: [x]rem |
 | pe-[X]  | padding on end direction    | padding-right: [x]rem | pedding-left: [x]rem  |
+
 [Padding docs](https://tailwindcss.com/docs/padding)
 
 ### Margin
@@ -43,6 +51,7 @@ plugins: [
 | ------- | --------------------------- | --------------------- | --------------------- |
 | ms-[X]  | margin on start direction   | margin-left: [x]rem   | margin-right: [x]rem  |
 | me-[X]  | margin on end direction     | margin-right: [x]rem  | margin-left: [x]rem   |
+
 [Margin docs](https://tailwindcss.com/docs/margin)
 
 ### Float
@@ -50,6 +59,7 @@ plugins: [
 | ----------- | ------------------------ | ------------ | ------------ |
 | float-start | float to start direction | float: left  | float: right |
 | float-end   | float to end direction   | float: right | float: left  |
+
 [Float docs](https://tailwindcss.com/docs/margin)
 
 ### Inset
