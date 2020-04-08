@@ -42,4 +42,19 @@ module.exports = plugin(function({ addUtilities, e, theme, variants }) {
   }
 
   addUtilities(floatUtilities, variants('float'));
+
+  const insetGenerators = [
+    (size, modifier) => ({
+      [`[dir='rtl'] .${e(prefixNegativeModifiers('start', modifier))}`]: { right: `${size}` },
+      [`[dir='rtl'] .${e(prefixNegativeModifiers('end', modifier))}`]: { left: `${size}` },
+      [`[dir='ltr'] .${e(prefixNegativeModifiers('end', modifier))}`]: { right: `${size}` },
+      [`[dir='ltr'] .${e(prefixNegativeModifiers('start', modifier))}`]: { left: `${size}` },
+    }),
+  ]
+
+  const insetUtilities = _.flatMap(insetGenerators, generator => {
+    return _.flatMap(theme('inset'), generator)
+  });
+
+  addUtilities(insetUtilities, variants('inset'));
 });
