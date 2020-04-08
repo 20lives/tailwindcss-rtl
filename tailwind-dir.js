@@ -1,14 +1,14 @@
-const plugin = require('tailwindcss/plugin');
+const plugin = require("tailwindcss/plugin");
 const _ = require('lodash');
-const prefixNegativeModifiers = require('./util/prefixNegativeModifiers');
+const { default: prefixNegativeModifiers } = require("tailwindcss/lib/util/prefixNegativeModifiers");
 
 module.exports = plugin(function({ addUtilities, e, theme, variants }) {
   const paddingGenerators = [
     (size, modifier) => ({
-      [`[dir='rtl'] .ps-${modifier}`]: { 'padding-right': `${size}` },
-      [`[dir='rtl'] .pe-${modifier}`]: { 'padding-left': `${size}` },
-      [`[dir='ltr'] .ps-${modifier}`]: { 'padding-left': `${size}` },
-      [`[dir='ltr'] .pe-${modifier}`]: { 'padding-right': `${size}` },
+      [`[dir='rtl'] .${e(`ps-${modifier}`)}`]: { 'padding-right': `${size}` },
+      [`[dir='rtl'] .${e(`pe-${modifier}`)}`]: { 'padding-left': `${size}` },
+      [`[dir='ltr'] .${e(`pe-${modifier}`)}`]: { 'padding-right': `${size}` },
+      [`[dir='ltr'] .${e(`ps-${modifier}`)}`]: { 'padding-left': `${size}` },
     }),
   ]
 
