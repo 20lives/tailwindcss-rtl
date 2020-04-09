@@ -1,8 +1,9 @@
 {
-  "name": "tailwind-dir",
+  "name": "tailwindcss-rtl",
   "version": "0.2.0",
   "main": "index.js",
-  "repository": "https://github.com/20lives/tailwind-dir",
+  "repository": "https://github.com/20lives/tailwindcss-rtl",
+  "keywords": [ "tailwind", "tailwindcss", "rtl", "tailwind plugin"],
   "author": "20lives",
   "license": "MIT",
   "private": false,
