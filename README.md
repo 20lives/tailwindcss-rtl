@@ -1,4 +1,4 @@
-# Tailwind-dir plugin for Tailwindcss
+
 
 [![npm package][npm-downloads]][npm]
 [![npm package][npm-version]][npm]
@@ -77,6 +77,18 @@ plugins: [
 | clear-end   | clear to end direction   | clear: right | clear: right |
 
 [Clear docs](https://tailwindcss.com/docs/clear)
+
+### Border Radius
+| Class          | LTR Property                                                     | RTL Property                                                      |
+| -------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
+| rounded-s-[X]  | border-top-left-radius: [x] <br> border-bottom-left-radius: [x]  | border-top-right-radius: [x] <br> border-bottom-right-radius: [x] |
+| rounded-e-[X]  | border-top-right-radius: [x] <br> border-bottom-right-radius: [x]| border-top-left-radius: [x] <br> border-bottom-left-radius: [x]   |
+| rounded-ts-[X] | border-top-left-radius: [x]                                      | border-top-right-radius: [x]                                      |
+| rounded-te-[X] | border-top-right-radius: [x]                                     | border-top-left-radius: [x]                                       |
+| rounded-bs-[X] | border-bottom-right-radius: [x]                                  | border-top-right-radius: [x]                                      |
+| rounded-be-[X] | border-bottom-left-radius: [x]                                   | border-top-left-radius: [x]                                       |
+
+[Border radius docs](https://tailwindcss.com/docs/border-radius)
 
 ## Usage
 
