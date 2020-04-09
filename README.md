@@ -1,7 +1,16 @@
+<p align="center">
+<h1>
+tailwind-dir
+</h1>
+<img src="https://i.imgur.com/QSY8nNU.gif">
+</a>
+<br>
+</p>
 
-
-[![npm package][npm-downloads]][npm]
-[![npm package][npm-version]][npm]
+<p align="center">
+  <a href="https://www.npmjs.com/package/tailwind-dir"><img src="https://img.shields.io/npm/dt/tailwind-dir.svg" alt="Total Downloads"></a>
+  <a href="https://github.com/tailwindcss/tailwind-dir/releases"><img src="https://img.shields.io/npm/v/tailwind-dir.svg" alt="Latest Release"></a>
+</p>
 
 ## Introduction
 
@@ -104,3 +113,4 @@ Now add  `dir="rtl"` or `dir="ltr"` attribute to your top level layout element:
 [npm-version]: https://img.shields.io/npm/v/tailwind-dir.svg?style=flat-square
 [npm-downloads]: https://img.shields.io/npm/dw/tailwind-dir?style=flat-square
 [npm]: https://www.npmjs.org/package/tailwind-dir
+[screenshot]: https://i.imgur.com/QSY8nNU.gif
