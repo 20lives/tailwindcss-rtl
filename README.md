@@ -1,6 +1,6 @@
 <p align="center">
 <h1>
-tailwind-dir
+tailwindcss-rtl
 </h1>
 <a href="https://workcation-rtl.netlify.com/en/" >
   <img src="https://i.imgur.com/QSY8nNU.gif">
@@ -10,8 +10,8 @@ tailwind-dir
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/tailwind-dir"><img src="https://img.shields.io/npm/dt/tailwind-dir.svg" alt="Total Downloads"></a>
-  <img src="https://img.shields.io/npm/v/tailwind-dir.svg" alt="Latest Release">
+  <a href="https://www.npmjs.com/package/tailwindcss-rtl"><img src="https://img.shields.io/npm/dt/tailwindcss-rtl.svg" alt="Total Downloads"></a>
+  <img src="https://img.shields.io/npm/v/tailwindcss-rtl.svg" alt="Latest Release">
 </p>
 
 ## Introduction
@@ -19,7 +19,7 @@ tailwind-dir
 Internationalization in semitic languages needs more than just translating texts, you would also need to mirror the layout horizontally.
 This can be done by adding `dir="rtl"` the the layout `body` tag, but this is propably not be enough and you will need to create a diffirect style for RTL.
 
-With **tailwind-dir** plugin you will be able to support both RTL and LTR in the same style.
+With **tailwindcss-rtl** plugin you will be able to support both RTL and LTR in the same style.
 
 A full example can be seen here: [workaction-rtl](https://github.com/20lives/workcation-nuxt-i18n-rtl)
 
@@ -27,27 +27,27 @@ This plugin was inspired by [Elad Shechter's medium article](https://medium.com/
 
 ## Installation
 
-Install `tailwind-dir' package:
+Install **tailwindcss-rtl** package:
 
 ```bash
 # Yarn
-yarn add tailwind-dir --dev
+yarn add tailwindcss-rtl --dev
 
 # NPM
-npm install tailwind-dir --save-dev
+npm install tailwindcss-rtl --save-dev
 ```
 
-Require `tailwind-dir` in `tailwind.config.js` file:
+Require `tailwindcss-rtl` in `tailwind.config.js` file:
 
 ```javascript
 plugins: [
-  require('tailwind-dir'),
+  require('tailwindcss-rtl'),
 ],
 ```
 
 ## Utilities
 
-**tailwind-dir** adds the *start* and *end* notations as substitue for *left* and *right*.
+**tailwindcss-rtl* adds the *start* and *end* notations as substitue for *left* and *right*.
 
 ### Padding
 | Class   | Description                 | LTR Property          | RTL Property          |
@@ -112,7 +112,6 @@ Now add  `dir="rtl"` or `dir="ltr"` attribute to your top level layout element:
 ```html
 <body dir="rtl">
 ```
-[npm-version]: https://img.shields.io/npm/v/tailwind-dir.svg?style=flat-square
-[npm-downloads]: https://img.shields.io/npm/dw/tailwind-dir?style=flat-square
-[npm]: https://www.npmjs.org/package/tailwind-dir
-[screenshot]: https://i.imgur.com/QSY8nNU.gif
+[npm-version]: https://img.shields.io/npm/v/tailwindcss-rtl.svg?style=flat-square
+[npm-downloads]: https://img.shields.io/npm/dw/tailwindcss-rtl?style=flat-square
+[npm]: https://www.npmjs.org/package/tailwindcss-rtl
