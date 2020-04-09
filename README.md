@@ -62,11 +62,21 @@ plugins: [
 
 [Float docs](https://tailwindcss.com/docs/margin)
 
-### Inset
+### Right/Left
 | Class     | Description              | LTR Property | RTL Property |
 | --------- | ------------------------ | ------------ | ------------ |
 | start-[X] | float to start direction | left: [x]    | right: [x]   |
 | end-[X]   | float to end direction   | right: [x]   | left: [x]    |
+
+[Right/Left docs](https://tailwindcss.com/docs/top-right-bottom-left)
+
+### Clear
+| Class       | Description              | LTR Property | RTL Property |
+| ----------- | ------------------------ | ------------ | ------------ |
+| clear-start | clear to start direction | clear: left  | clear: left  |
+| clear-end   | clear to end direction   | clear: right | clear: right |
+
+[Clear docs](https://tailwindcss.com/docs/clear)
 
 ## Usage
 
