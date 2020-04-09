@@ -57,4 +57,13 @@ module.exports = plugin(function({ addUtilities, e, theme, variants }) {
   });
 
   addUtilities(insetUtilities, variants('inset'));
+
+  const clearUtilities = {
+    "[dir='ltr'] .clear-start": { clear: 'left' },
+    "[dir='ltr'] .clear-end": { clear: 'right' },
+    "[dir='rtl'] .clear-start": { clear: 'right' },
+    "[dir='rtl'] .clear-end": { clear: 'left' },
+  };
+
+  addUtilities(clearUtilities, variants('clear'));
 });
