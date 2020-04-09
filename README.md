@@ -2,14 +2,16 @@
 <h1>
 tailwind-dir
 </h1>
-<img src="https://i.imgur.com/QSY8nNU.gif">
+<a href="https://workcation-rtl.netlify.com/en/" >
+  <img src="https://i.imgur.com/QSY8nNU.gif">
+</a>
 </a>
 <br>
 </p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/tailwind-dir"><img src="https://img.shields.io/npm/dt/tailwind-dir.svg" alt="Total Downloads"></a>
-  <a href="https://github.com/tailwindcss/tailwind-dir/releases"><img src="https://img.shields.io/npm/v/tailwind-dir.svg" alt="Latest Release"></a>
+  <img src="https://img.shields.io/npm/v/tailwind-dir.svg" alt="Latest Release">
 </p>
 
 ## Introduction
@@ -19,7 +21,7 @@ This can be done by adding `dir="rtl"` the the layout `body` tag, but this is pr
 
 With **tailwind-dir** plugin you will be able to support both RTL and LTR in the same style.
 
-A full example can be seen here: [workaction-rtl](https://workcation-rtl.netlify.com) [source](https://github.com/20lives/workcation)
+A full example can be seen here: [workaction-rtl](https://github.com/20lives/workcation-nuxt-i18n-rtl)
 
 This plugin was inspired by [Elad Shechter's medium article](https://medium.com/@elad/the-best-way-to-rtl-your-website-with-sass-105e34a4298a) tackling the same issue with Sass.
 
