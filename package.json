@@ -3,7 +3,15 @@
   "version": "0.2.0",
   "main": "index.js",
   "repository": "https://github.com/20lives/tailwindcss-rtl",
-  "keywords": [ "tailwind", "tailwindcss", "rtl", "tailwind plugin"],
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "rtl",
+    "tailwind plugin"
+  ],
   "author": "20lives",
   "license": "MIT",
   "private": false,
@@ -12,6 +20,10 @@
     "tailwindcss": "^1.2.0"
   },
   "devDependencies": {
-    "postcss": "^7.0.27"
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "postcss": "^7.0.27",
+    "prettier": "2.0.4"
   }
 }
