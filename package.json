@@ -4,7 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/20lives/tailwindcss-rtl",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "tailwind build  ./src/styles.css -o ./dist/styles.css"
   },
   "keywords": [
     "tailwind",
