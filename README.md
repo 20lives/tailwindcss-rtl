@@ -21,9 +21,23 @@ This can be done by adding `dir="rtl"` the the layout `body` tag, but this is pr
 
 With **tailwindcss-rtl** plugin you will be able to support both RTL and LTR in the same style.
 
-A full example can be seen here: [workaction-rtl](https://github.com/20lives/workcation-nuxt-i18n-rtl)
-
 This plugin was inspired by [Elad Shechter's medium article](https://medium.com/@elad/the-best-way-to-rtl-your-website-with-sass-105e34a4298a) tackling the same issue with Sass.
+
+## Live demo
+
+Full live demo based on the official tailwindcss course project is available here: [Workcation](https://github.com/20lives/workcation-nuxt-i18n-rtl)
+
+## Usage
+
+Replace all utilities based on Right/Left with the new utilities specified below.
+
+for example when you create an LTR layout and you would like to add left padding to an element you would normaly use `pl-6`, left is the start direction in LTR so you will replace it with `ps-6`.
+
+Now add  `dir="rtl"` or `dir="ltr"` attribute to your top level layout element:
+
+```html
+<body dir="rtl">
+```
 
 ## Installation
 
@@ -101,17 +115,6 @@ plugins: [
 
 [Border radius docs](https://tailwindcss.com/docs/border-radius)
 
-## Usage
-
-Replace all padding, margins, floats and insets utilities with the corresponding utilities.
-
-for example when you create an LTR layout and you would like to add left padding to an element you would normaly use `pl-6`, left is the start direction in LTR so you will replace it with `ps-6`.
-
-Now add  `dir="rtl"` or `dir="ltr"` attribute to your top level layout element:
-
-```html
-<body dir="rtl">
-```
 [npm-version]: https://img.shields.io/npm/v/tailwindcss-rtl.svg?style=flat-square
 [npm-downloads]: https://img.shields.io/npm/dw/tailwindcss-rtl?style=flat-square
 [npm]: https://www.npmjs.org/package/tailwindcss-rtl
