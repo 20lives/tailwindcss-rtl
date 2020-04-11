@@ -6,6 +6,7 @@ const floatUtilities = require('./floatUtilities');
 const insetUtilities = require('./insetUtilities');
 const clearUtilities = require('./clearUtilities');
 const borderRadiusUtilities = require('./borderRadiusUtilities');
+const borderWidthUtilities = require('./borderWidthUtilities');
 
 module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
   addUtilities(paddingUtilities(theme, e), variants('padding'));
@@ -14,4 +15,5 @@ module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
   addUtilities(borderRadiusUtilities(theme, e), variants('borderRadius'));
   addUtilities(clearUtilities(), variants('clear'));
   addUtilities(floatUtilities(), variants('float'));
+  addUtilities(borderWidthUtilities(theme, e), variants('borderWidth'));
 });
