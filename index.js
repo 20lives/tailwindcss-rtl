@@ -8,6 +8,7 @@ const clearUtilities = require('./clearUtilities');
 const borderRadiusUtilities = require('./borderRadiusUtilities');
 const borderWidthUtilities = require('./borderWidthUtilities');
 const textAlignUtilities = require('./textAlignUtilities');
+const transformOriginUtilities = require('./transformOriginUtilities');
 
 module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
   addUtilities(paddingUtilities(theme, e), variants('padding'));
@@ -18,4 +19,5 @@ module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
   addUtilities(floatUtilities(), variants('float'));
   addUtilities(borderWidthUtilities(theme, e), variants('borderWidth'));
   addUtilities(textAlignUtilities(), variants('textAlign'));
+  addUtilities(transformOriginUtilities(), variants('transformOrigin'));
 });
