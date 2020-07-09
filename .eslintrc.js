@@ -6,10 +6,8 @@ module.exports = {
   },
   "extends": [
     "eslint:recommended",
-    "prettier",
   ],
   "plugins": [
-    "prettier",
   ],
   "globals": {
     "Atomics": "readonly",
@@ -19,11 +17,6 @@ module.exports = {
     "ecmaVersion": 2018
   },
   "rules": {
-    "prettier/prettier": ["error"],
-    "indent": [
-      "error",
-      2 
-    ],
     "linebreak-style": [
       "error",
       "unix"
