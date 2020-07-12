@@ -17,7 +17,7 @@ module.exports = plugin(function ({ addUtilities, e, theme, variants, target }) 
   addUtilities(borderRadiusUtilities(theme, e), variants('borderRadius'));
   addUtilities(clearUtilities(), variants('clear'));
   addUtilities(floatUtilities(), variants('float'));
-  addUtilities(borderWidthUtilities(theme, e), variants('borderWidth'));
+  addUtilities(borderWidthUtilities(theme, e, target), variants('borderWidth'));
   addUtilities(textAlignUtilities(), variants('textAlign'));
   addUtilities(transformOriginUtilities(), variants('transformOrigin'));
 });
