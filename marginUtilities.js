@@ -3,25 +3,34 @@ const {
   default: prefixNegativeModifiers,
 } = require('tailwindcss/lib/util/prefixNegativeModifiers');
 
-module.exports = (theme, e) => {
-  return _.flatMap(generators(e), (generator) => {
-    return _.flatMap(theme('margin'), generator);
-  });
-};
-
-const generators = (e) => [
+const generators = (e, target) => [
+  target('margin') === 'ie11' ?
   (size, modifier) => ({
     [`[dir="rtl"] .${e(prefixNegativeModifiers('ms', modifier))}`]: {
-      'margin-right': `${size}`,
+      marginLeft: `${size}`,
     },
     [`[dir="rtl"] .${e(prefixNegativeModifiers('me', modifier))}`]: {
-      'margin-left': `${size}`,
+      marginRight: `${size}`,
     },
     [`[dir="ltr"] .${e(prefixNegativeModifiers('ms', modifier))}`]: {
-      'margin-left': `${size}`,
+      marginLeft: `${size}`,
     },
     [`[dir="ltr"] .${e(prefixNegativeModifiers('me', modifier))}`]: {
-      'margin-right': `${size}`,
+      marginRight: `${size}`,
+    },
+  }) :
+  (size, modifier) => ({
+    [`.${e(prefixNegativeModifiers('ms', modifier))}`]: {
+      marginInlineStart: `${size}`,
+    },
+    [`.${e(prefixNegativeModifiers('me', modifier))}`]: {
+      marginInlineEnd: `${size}`,
     },
   }),
 ];
+
+module.exports = (theme, e, target) => {
+  return _.flatMap(generators(e, target), (generator) => {
+    return _.flatMap(theme('margin'), generator);
+  });
+};
