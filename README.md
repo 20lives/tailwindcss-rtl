@@ -24,7 +24,9 @@ With **tailwindcss-rtl** plugin you will be able to support both RTL and LTR in 
 ## Live demo
 
 Full live demo based on the official tailwindcss course project is available here: 
+
 [Workcation demo](https://workcation-rtl.netlify.app/en/)
+
 [source project](https://github.com/20lives/workcation-nuxt-i18n-rtl)
 
 ## Requirements
@@ -65,7 +67,7 @@ plugins: [
 
 ### Old browsers support
 
-Some of the features used in this plugin are not compatible with older browers such as IE11, if you need to support those browsers, add `target: 'IE11'` to your tailwind config file, this will replace new features with supported methods.
+Some of the features used in this plugin are not compatible with older browers such as IE11, if you need to support those browsers, add `target: 'IE11'` to your tailwind config file, this will replace new features with methods supported by older browsers.
 
 ## Utilities
 
