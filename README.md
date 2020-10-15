@@ -1,18 +1,15 @@
 <p align="center">
-<h1>
-tailwindcss-rtl
-</h1>
-<a href="https://workcation-rtl.netlify.com/en/" >
-  <img src="https://i.imgur.com/QSY8nNU.gif">
-</a>
-</a>
-<br>
-</p>
-
-<p align="center">
+  <h1>
+    tailwindcss-rtl
+  </h1>
+  <a href="https://workcation-rtl.netlify.com/en/" >
+    <img src="https://i.imgur.com/QSY8nNU.gif">
+  </a>
+  <br>
   <a href="https://www.npmjs.com/package/tailwindcss-rtl"><img src="https://img.shields.io/npm/dt/tailwindcss-rtl.svg" alt="Total Downloads"></a>
   <a href="https://www.npmjs.com/package/tailwindcss-rtl"><img src="https://img.shields.io/npm/v/tailwindcss-rtl.svg" alt="Latest Release"> </a>
 </p>
+
 
 ## Introduction
 
@@ -25,9 +22,9 @@ With **tailwindcss-rtl** plugin you will be able to support both RTL and LTR in 
 
 Full live demo based on the official tailwindcss course project is available here: 
 
-[Workcation demo](https://workcation-rtl.netlify.app/en/)
+[Workcation live demo](https://workcation-rtl.netlify.app/en/)
 
-[source project](https://github.com/20lives/workcation-nuxt-i18n-rtl)
+[Workcation-nuxt-i18n-rtl](https://github.com/20lives/workcation-nuxt-i18n-rtl)
 
 ## Requirements
 
@@ -57,7 +54,7 @@ yarn add tailwindcss-rtl --dev
 npm install tailwindcss-rtl --save-dev
 ```
 
-Require `tailwindcss-rtl` in `tailwind.config.js` file:
+Require `tailwindcss-rtl` in the project `tailwind.config.js` file:
 
 ```javascript
 plugins: [
@@ -67,7 +64,7 @@ plugins: [
 
 ### Old browsers support
 
-Some of the features used in this plugin are not compatible with older browers such as IE11, if you need to support those browsers, add `target: 'IE11'` to your tailwind config file, this will replace new features with methods supported by older browsers.
+Some of the features used in this plugin are not compatible with older browers such as IE11, if you need to support those browsers, add `target: 'ie11'` to your tailwind config file, this will replace new features with methods supported by older browsers.
 
 ## Utilities
 
@@ -93,6 +90,8 @@ Some of the features used in this plugin are not compatible with older browers s
 | rounded-be-[X] | rounded borders on bottom end direction   |
 | border-s-[X]   | border width on start direction           |
 | border-e-[X]   | bordern width on end direction            |
+| space-s-[X]    | space between child                       |
+| divide-s-[X]   | border width between child elements       |
 
 [npm-version]: https://img.shields.io/npm/v/tailwindcss-rtl.svg?style=flat-square
 [npm-downloads]: https://img.shields.io/npm/dw/tailwindcss-rtl?style=flat-square
