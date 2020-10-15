@@ -14,12 +14,12 @@ module.exports = (theme, e, target) => {
       },
     }),
     ] : [(size, modifier) => ({
-        [`.${e(prefixNegativeModifiers('space-s', modifier))} > :not(template) ~ :not(template)`]: {
-          '--space-s-reverse': '0',
-          marginInlineEnd: `calc(${size === '0' ? '0px' : size} * var(--space-s-reverse))`,
-          marginInlineStart: `calc(${size === '0' ? '0px' : size} * calc(1 - var(--space-s-reverse)))`,
-        },
-      }),
+      [`.${e(prefixNegativeModifiers('space-s', modifier))} > :not(template) ~ :not(template)`]: {
+        '--space-s-reverse': '0',
+        marginInlineEnd: `calc(${size === '0' ? '0px' : size} * var(--space-s-reverse))`,
+        marginInlineStart: `calc(${size === '0' ? '0px' : size} * calc(1 - var(--space-s-reverse)))`,
+      },
+    }),
     ];
 
   return (target('space') === 'ie11') ?
