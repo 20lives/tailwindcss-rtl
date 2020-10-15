@@ -1,11 +1,11 @@
 {
   "name": "tailwindcss-rtl",
   "version": "0.4.1",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "https://github.com/20lives/tailwindcss-rtl",
   "scripts": {
-    "lint": "eslint .",
-    "build": "tailwind build  ./src/styles.css -o ./dist/styles.css"
+    "lint": "eslint ./src",
+    "build": "tailwindcss build -c src/tailwind.config.js -o dist/tailwindcss-rtl.css"
   },
   "keywords": [
     "tailwind",
@@ -18,7 +18,7 @@
   "private": false,
   "dependencies": {
     "lodash": "^4.17.19",
-    "tailwindcss": "^1.2.0"
+    "tailwindcss": "^1.4.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
