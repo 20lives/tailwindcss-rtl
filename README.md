@@ -77,6 +77,8 @@ Some of the features used in this plugin are not compatible with older browers s
 | pe-[X]         | padding on end direction                  |
 | ms-[X]         | margin on start direction                 |
 | me-[X]         | margin on end direction                   |
+| text-start     | text aligned at the start direction       |
+| text-end.      | text aligned at the end direction         |
 | float-start    | float to start direction                  |
 | float-end      | float to end direction                    |
 | start-[X]      | float to start direction                  |
