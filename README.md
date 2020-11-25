@@ -27,10 +27,6 @@ Full live demo based on the official tailwindcss course project is available her
 
 [Workcation-nuxt-i18n-rtl](https://github.com/20lives/workcation-nuxt-i18n-rtl)
 
-## Requirements
-
-This plugin will work only on **tailwindcss 1.4** and above.
-
 ## Usage
 
 Replace all utilities based on Right/Left with the new utilities specified below.
