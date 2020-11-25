@@ -3,32 +3,31 @@ module.exports = {
     'browser': true,
     'commonjs': true,
     'node': true,
-    'es2021': true,
   },
   'extends': 'eslint:recommended',
   'parserOptions': {
-    'ecmaVersion': 12
+    'ecmaVersion': 2019,
   },
   'rules': {
     'indent': [
       'error',
-      2
+      2,
     ],
     'linebreak-style': [
       'error',
-      'unix'
+      'unix',
     ],
     'quotes': [
       'error',
-      'single'
+      'single',
     ],
     'semi': [
       'error',
-      'always'
+      'always',
     ],
     'comma-dangle': [
       'error',
       'always-multiline',
     ],
-  }
+  },
 };
