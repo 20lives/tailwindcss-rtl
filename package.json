@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-rtl",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "main": "src/index.js",
   "repository": "https://github.com/20lives/tailwindcss-rtl",
   "scripts": {
@@ -16,12 +16,7 @@
   "author": "20lives",
   "license": "MIT",
   "private": false,
-  "dependencies": {
-    "lodash": "^4.17.19",
-    "tailwindcss": "^1.4.0"
-  },
   "devDependencies": {
-    "eslint": "^7.14.0",
-    "postcss": "^7.0.27"
+    "tailwindcss": "^1.9.6"
   }
 }

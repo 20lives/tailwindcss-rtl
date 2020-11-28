@@ -1,20 +1,12 @@
-const _ = require('lodash');
+const nameClass = require('./util/nameClass.js');
 
-const generators = (e) => [
-  (value, modifier) => ({
-    [`.${e(`border-e${modifier}`)}`]: {
-      borderInlineEndWidth: `${value}`,
-    },
-    [`.${e(`border-s${modifier}`)}`]: {
-      borderInlineStartWidth: `${value}`,
-    },
-  }),
-];
+module.exports = (theme) => {
+  const generators = [
+    ([modifier, value]) => ({
+      [nameClass('border-e', modifier)]: { borderInlineEndWidth: value },
+      [nameClass('border-s', modifier)]: { borderInlineStartWidth: value },
+    }),
+  ];
 
-module.exports = (theme, e) => {
-  return _.flatMap(generators(e), (generator) => {
-    return _.flatMap(theme('borderWidth'), (value, modifier) => {
-      return generator(value, modifier === 'default' ? '' : `-${modifier}`);
-    });
-  });
+  return generators.flatMap(generator => Object.entries(theme('borderWidth')).flatMap(generator));
 };
