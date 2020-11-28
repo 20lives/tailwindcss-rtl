@@ -59,10 +59,6 @@ plugins: [
 ],
 ```
 
-### Old browsers support
-
-Some of the features used in this plugin are not compatible with older browers such as IE11, if you need to support those browsers, add `target: 'ie11'` to your tailwind config file, this will replace new features with methods supported by older browsers.
-
 ## Utilities
 
 **tailwindcss-rtl* adds the *start* and *end* notations as substitue for *left* and *right*.
@@ -74,7 +70,7 @@ Some of the features used in this plugin are not compatible with older browers s
 | ms-[X]         | margin on start direction                 |
 | me-[X]         | margin on end direction                   |
 | text-start     | text aligned at the start direction       |
-| text-end.      | text aligned at the end direction         |
+| text-end      | text aligned at the end direction         |
 | float-start    | float to start direction                  |
 | float-end      | float to end direction                    |
 | start-[X]      | float to start direction                  |
