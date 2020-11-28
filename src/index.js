@@ -12,16 +12,16 @@ const transformOriginUtilities = require('./transformOriginUtilities');
 const spaceUtilities = require('./spaceUtilities');
 const divideUtilities = require('./divideUtilities');
 
-module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
-  addUtilities(paddingUtilities(theme, e), variants('padding'));
-  addUtilities(marginUtilities(theme, e), variants('margin'));
-  addUtilities(insetUtilities(theme, e), variants('inset'));
-  addUtilities(borderRadiusUtilities(theme, e), variants('borderRadius'));
+module.exports = plugin(({ addUtilities, theme, variants }) => {
+  addUtilities(paddingUtilities(theme), variants('padding'));
+  addUtilities(marginUtilities(theme), variants('margin'));
+  addUtilities(insetUtilities(theme), variants('inset'));
+  addUtilities(borderRadiusUtilities(theme), variants('borderRadius'));
   addUtilities(clearUtilities(), variants('clear'));
   addUtilities(floatUtilities(), variants('float'));
-  addUtilities(borderWidthUtilities(theme, e), variants('borderWidth'));
+  addUtilities(borderWidthUtilities(theme), variants('borderWidth'));
   addUtilities(textAlignUtilities(), variants('textAlign'));
   addUtilities(transformOriginUtilities(), variants('transformOrigin'));
-  addUtilities(spaceUtilities(theme, e), variants('space'));
-  addUtilities(divideUtilities(theme, e), variants('divide'));
+  addUtilities(spaceUtilities(theme), variants('space'));
+  addUtilities(divideUtilities(theme), variants('divide'));
 });

@@ -1,20 +1,27 @@
-const _ = require('lodash');
-const {
-  default: prefixNegativeModifiers,
-} = require('tailwindcss/lib/util/prefixNegativeModifiers');
+const nameClass = require('./util/nameClass.js');
 
-module.exports = (theme, e) => {
-  const generators = [(size, modifier) => ({
-    [`.${e(prefixNegativeModifiers('space-s', modifier))} > :not(template) ~ :not(template)`]: {
-      '--space-s-reverse': '0',
-      marginInlineEnd: `calc(${size === '0' ? '0px' : size} * var(--space-s-reverse))`,
-      marginInlineStart: `calc(${size === '0' ? '0px' : size} * calc(1 - var(--space-s-reverse)))`,
+module.exports = (theme) => {
+  const generators = [
+    ([modifier, _size]) => {
+      const size = _size === '0' ? '0px' : _size;
+      return {
+        [`${nameClass('space-s', modifier)} > :not([hidden]) ~ :not([hidden])`]: {
+          '--tw-space-s-reverse': '0',
+          marginInlineEnd: `calc(${size} * var(--tw-space-s-reverse))`,
+          marginInlineStart: `calc(${size} * calc(1 - var(--tw-space-s-reverse)))`,
+        },
+      };
     },
-  }),
   ];
 
-  return _.flatMap(generators, generator => [
-    ..._.flatMap(theme('space'), generator),
-    { '.space-s-reverse > :not(template) ~ :not(template)': { '--space-s-reverse': '1' } },
-  ]);
+  const spaceReverse = {
+    '.space-s-reverse > :not([hidden]) ~ :not([hidden])': {
+      '--tw-space-s-reverse': '1',
+    },
+  };
+
+  return [
+    ...generators.flatMap((generator) => Object.entries(theme('space')).flatMap(generator)),
+    spaceReverse,
+  ];
 };

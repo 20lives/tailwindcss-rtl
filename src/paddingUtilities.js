@@ -1,14 +1,12 @@
-const _ = require('lodash');
+const nameClass = require('./util/nameClass');
 
-const generators = (e) => [
-  (size, modifier) => ({
-    [`.${e(`ps-${modifier}`)}`]: { paddingInlineStart: `${size}` },
-    [`.${e(`pe-${modifier}`)}`]: { paddingInlineEnd: `${size}` },
-  }),
-];
+module.exports = (theme) => {
+  const generators = [
+    ([modifier, size]) => ({
+      [nameClass('ps', modifier)]: { paddingInlineStart: size },
+      [nameClass('pe', modifier)]: { paddingInlineEnd: size },
+    }),
+  ];
 
-module.exports = (theme, e, target) => {
-  return _.flatMap(generators(e, target), (generator) => {
-    return _.flatMap(theme('padding'), generator);
-  });
+  return generators.flatMap(generator => Object.entries(theme('padding')).flatMap(generator));
 };

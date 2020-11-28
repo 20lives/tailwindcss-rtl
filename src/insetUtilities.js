@@ -1,27 +1,21 @@
-const _ = require('lodash');
-const {
-  default: prefixNegativeModifiers,
-} = require('tailwindcss/lib/util/prefixNegativeModifiers');
+const nameClass = require('./util/nameClass.js');
 
-const generators = (e) => [
-  (size, modifier) => ({
-    [`[dir="rtl"] .${e(prefixNegativeModifiers('start', modifier))}`]: {
-      right: `${size}`,
-    },
-    [`[dir="rtl"] .${e(prefixNegativeModifiers('end', modifier))}`]: {
-      left: `${size}`,
-    },
-    [`[dir="ltr"] .${e(prefixNegativeModifiers('end', modifier))}`]: {
-      right: `${size}`,
-    },
-    [`[dir="ltr"] .${e(prefixNegativeModifiers('start', modifier))}`]: {
-      left: `${size}`,
-    },
-  }),
-];
-
-module.exports = (theme, e) => {
-  return _.flatMap(generators(e), (generator) => {
-    return _.flatMap(theme('inset'), generator);
-  });
+module.exports = (theme) => {
+  const generators = [
+    ([modifier, size]) => ({
+      ['[dir="rtl"] ' + nameClass('start', modifier)]: {
+        right: size,
+      },
+      ['[dir="rtl"] ' + nameClass('end', modifier)]: {
+        left: size,
+      },
+      ['[dir="ltr"] ' + nameClass('end', modifier)]: {
+        right: size,
+      },
+      ['[dir="ltr"] ' + nameClass('start', modifier)]: {
+        left: size,
+      },
+    }),
+  ];
+  return generators.flatMap(generator => Object.entries(theme('inset')).flatMap(generator));
 };
