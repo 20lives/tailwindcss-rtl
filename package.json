@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-rtl",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "main": "src/index.js",
   "repository": "https://github.com/20lives/tailwindcss-rtl",
   "scripts": {
