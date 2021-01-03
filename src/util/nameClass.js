@@ -1,12 +1,10 @@
 const { default: escapeClassName } = require('tailwindcss/lib/util/escapeClassName');
 
 
-function asClass(name) {
-  return `.${escapeClassName(name)}`;
-}
+const asClass = (name) => `.${escapeClassName(name)}`;
 
 module.exports = (classPrefix, key) => {
-  if (key === 'default') {
+  if (['default', 'DEFAULT'].includes(key)) {
     return asClass(classPrefix);
   }
 
