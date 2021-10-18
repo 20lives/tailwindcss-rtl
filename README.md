@@ -73,8 +73,8 @@ plugins: [
 | text-end      | text aligned at the end direction         |
 | float-start    | float to start direction                  |
 | float-end      | float to end direction                    |
-| start-[X]      | float to start direction                  |
-| end-[X]        | float to end direction                    |
+| start-[X]      | placement of positioned elements on start |
+| end-[X]        | placement of positioned elements on end   |
 | clear-start    | clear to start direction                  |
 | clear-end      | clear to end direction                    |
 | rounded-s-[X]  | rounded borders on start direction        |
