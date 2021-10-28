@@ -3,11 +3,11 @@ const nameClass = require('./util/nameClass');
 module.exports = (theme) => {
   const generators = [
     ([modifier, value]) => ({
-      ['[dir="ltr"] ' + nameClass('rounded-e', modifier)]: {
+      [':not([dir="rtl"]) ' + nameClass('rounded-e', modifier)]: {
         borderTopRightRadius: value,
         borderBottomRightRadius: value,
       },
-      ['[dir="ltr"] ' + nameClass('rounded-s', modifier)]: {
+      [':not([dir="rtl"]) ' + nameClass('rounded-s', modifier)]: {
         borderTopLeftRadius: value,
         borderBottomLeftRadius: value,
       },
@@ -21,10 +21,10 @@ module.exports = (theme) => {
       },
     }),
     ([modifier, value]) => ({
-      ['[dir="ltr"] ' + nameClass('rounded-ts', modifier)]: { borderTopLeftRadius: value },
-      ['[dir="ltr"] ' + nameClass('rounded-te', modifier)]: { borderTopRightRadius: value },
-      ['[dir="ltr"] ' + nameClass('rounded-be', modifier)]: { borderBottomRightRadius: value },
-      ['[dir="ltr"] ' + nameClass('rounded-bs', modifier)]: { borderBottomLeftRadius: value },
+      [':not([dir="rtl"]) ' + nameClass('rounded-ts', modifier)]: { borderTopLeftRadius: value },
+      [':not([dir="rtl"]) ' + nameClass('rounded-te', modifier)]: { borderTopRightRadius: value },
+      [':not([dir="rtl"]) ' + nameClass('rounded-be', modifier)]: { borderBottomRightRadius: value },
+      [':not([dir="rtl"]) ' + nameClass('rounded-bs', modifier)]: { borderBottomLeftRadius: value },
       ['[dir="rtl"] ' + nameClass('rounded-te', modifier)]: { borderTopLeftRadius: value },
       ['[dir="rtl"] ' + nameClass('rounded-ts', modifier)]: { borderTopRightRadius: value },
       ['[dir="rtl"] ' + nameClass('rounded-bs', modifier)]: { borderBottomRightRadius: value },
