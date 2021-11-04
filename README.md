@@ -39,6 +39,8 @@ Now add  `dir="rtl"` or `dir="ltr"` attribute to your top level layout element:
 <body dir="rtl">
 ```
 
+Adding `dir="ltr"` is optional, because unless specified otherwise, LTR is assumed to be the default.
+
 ## Installation
 
 Install **tailwindcss-rtl** package:
