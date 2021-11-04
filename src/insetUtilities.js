@@ -9,10 +9,10 @@ module.exports = (theme) => {
       ['[dir="rtl"] ' + nameClass('end', modifier)]: {
         left: size,
       },
-      ['[dir="ltr"] ' + nameClass('end', modifier)]: {
+      [':not([dir="rtl"]) ' + nameClass('end', modifier)]: {
         right: size,
       },
-      ['[dir="ltr"] ' + nameClass('start', modifier)]: {
+      [':not([dir="rtl"]) ' + nameClass('start', modifier)]: {
         left: size,
       },
     }),
