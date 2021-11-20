@@ -1,8 +1,6 @@
 const utilities = () => ({
-  '[dir="rtl"] .text-start': { 'text-align': 'right' },
-  '[dir="rtl"] .text-end': { 'text-align': 'left' },
-  ':not([dir="rtl"]) .text-end': { 'text-align': 'right' },
-  ':not([dir="rtl"]) .text-start': { 'text-align': 'left' },
+  '.text-start': { 'text-align': 'start' },
+  '.text-end': { 'text-align': 'end' },
 });
 
 module.exports = utilities;
