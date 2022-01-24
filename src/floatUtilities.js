@@ -1,8 +1,8 @@
 const utilities = () => ({
-  ':not([dir="rtl"]) .float-end': { float: 'right' },
-  ':not([dir="rtl"]) .float-start': { float: 'left' },
-  '[dir="rtl"] .float-start': { float: 'right' },
-  '[dir="rtl"] .float-end': { float: 'left' },
+  'html[dir="ltr"] .float-end': { float: 'right' },
+  'html[dir="ltr"] .float-start': { float: 'left' },
+  'html[dir="rtl"] .float-start': { float: 'right' },
+  'html[dir="rtl"] .float-end': { float: 'left' },
 });
 
 module.exports = utilities;
