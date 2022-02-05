@@ -39,7 +39,8 @@ Now add  `dir="rtl"` or `dir="ltr"` attribute to your top level layout element:
 <body dir="rtl">
 ```
 
-Adding `dir="ltr"` is optional, because unless specified otherwise, LTR is assumed to be the default.
+
+**Note:** _for all utilities to work as expected adding the **dir** attribute (both "rtl"/"ltr") to a top level tag is mandatory), even when "ltr" is assumed to be default._
 
 ## Installation
 
