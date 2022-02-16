@@ -1,8 +1,6 @@
 const utilities = () => ({
-  '[dir="ltr"] .clear-start': { clear: 'left' },
-  '[dir="ltr"] .clear-end': { clear: 'right' },
-  '[dir="rtl"] .clear-start': { clear: 'right' },
-  '[dir="rtl"] .clear-end': { clear: 'left' },
+  '.clear-start': { clear: 'inline-start' },
+  '.clear-end': { clear: 'inline-end' },
 });
 
 module.exports = utilities;

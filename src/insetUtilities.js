@@ -3,17 +3,11 @@ const nameClass = require('./util/nameClass.js');
 module.exports = (theme) => {
   const generators = [
     ([modifier, size]) => ({
-      ['[dir="rtl"] ' + nameClass('start', modifier)]: {
-        right: size,
+      [nameClass('start', modifier)]: {
+        insetInlineStart: size,
       },
-      ['[dir="rtl"] ' + nameClass('end', modifier)]: {
-        left: size,
-      },
-      ['[dir="ltr"] ' + nameClass('end', modifier)]: {
-        right: size,
-      },
-      ['[dir="ltr"] ' + nameClass('start', modifier)]: {
-        left: size,
+      [nameClass('end', modifier)]: {
+        insetInlineEnd: size,
       },
     }),
   ];
