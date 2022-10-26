@@ -5,6 +5,7 @@
   "repository": "https://github.com/20lives/tailwindcss-rtl",
   "scripts": {
     "lint": "eslint ./src",
+    "test": "jest",
     "build": "tailwindcss build -c src/tailwind.config.js -o dist/tailwindcss-rtl.css"
   },
   "keywords": [
@@ -16,7 +17,12 @@
   "author": "20lives",
   "license": "MIT",
   "private": false,
+  "peerDependencies": {
+    "tailwindcss": ">=2.0.0 || >=3.0.0"
+  },
   "devDependencies": {
-    "tailwindcss": "^1.9.6"
+    "jest": "^27.2.4",
+    "postcss": "^8.2.4",
+    "tailwindcss": "^3.0.0"
   }
 }
