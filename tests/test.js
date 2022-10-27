@@ -76,8 +76,6 @@ const rules = {
 
 const trimmer = (val) => val.replace(/\s+/g, " ").trim();
 Object.entries(rules).forEach(([className, expected]) => {
-  console.log(className, expected);
-
   it(className, () => {
     const output = postcss([
       require("tailwindcss")({
@@ -90,7 +88,6 @@ Object.entries(rules).forEach(([className, expected]) => {
       }),
     ]).process("@tailwind utilities").css;
 
-    console.log(output);
     expect(trimmer(output)).toBe(trimmer(expected));
   });
 });
