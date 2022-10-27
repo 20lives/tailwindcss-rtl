@@ -1,50 +1,26 @@
 const postcss = require("postcss");
+const tailwindcss = require("tailwindcss");
 
 const rules = {
-  "ps-[JIT_VALUE]": `.ps-\\[JIT_VALUE\\] {
-    padding-inline-start: JIT VALUE
-}`,
-  "pe-[JIT_VALUE]": `.pe-\\[JIT_VALUE\\] {
-    padding-inline-end: JIT VALUE
-}`,
-  "ms-[JIT_VALUE]": `.ms-\\[JIT_VALUE\\] {
-      margin-inline-start: JIT VALUE
-  }`,
-  "me-[JIT_VALUE]": `.me-\\[JIT_VALUE\\] {
-    margin-inline-end: JIT VALUE
-}`,
-  "start-[JIT_VALUE]": `[dir="rtl"] .start-\\[JIT_VALUE\\] {
-      right: JIT VALUE
-  }
-  [dir="left"] .start-\\[JIT_VALUE\\] {
-      left: JIT VALUE
-  }`,
-  "end-[JIT_VALUE]": `[dir="rtl"] .end-\\[JIT_VALUE\\] {
-    left: JIT VALUE
-}
-[dir="left"] .end-\\[JIT_VALUE\\] {
-    right: JIT VALUE
-}`,
+  "ps-[JIT_VALUE]": `.ps-\\[JIT_VALUE\\] { padding-inline-start: JIT VALUE }`,
+  "pe-[JIT_VALUE]": `.pe-\\[JIT_VALUE\\] { padding-inline-end: JIT VALUE }`,
+  "ms-[JIT_VALUE]": `.ms-\\[JIT_VALUE\\] { margin-inline-start: JIT VALUE }`,
+  "me-[JIT_VALUE]": `.me-\\[JIT_VALUE\\] { margin-inline-end: JIT VALUE }`,
+  "start-[JIT_VALUE]": `[dir="rtl"] .start-\\[JIT_VALUE\\] { right: JIT VALUE }
+  [dir="left"] .start-\\[JIT_VALUE\\] { left: JIT VALUE }`,
+  "end-[JIT_VALUE]": `[dir="rtl"] .end-\\[JIT_VALUE\\] { left: JIT VALUE }
+[dir="left"] .end-\\[JIT_VALUE\\] { right: JIT VALUE }`,
   "border-s-[JIT_VALUE]":
     ".border-s-\\[JIT_VALUE\\] { border-inline-start-width: JIT VALUE }",
   "border-e-[JIT_VALUE]":
     ".border-e-\\[JIT_VALUE\\] { border-inline-end-width: JIT VALUE }",
-  "rounded-e-[JIT_VALUE]": `[dir="ltr"] .rounded-e-\\[JIT_VALUE\\] {
-    border-top-right-radius: JIT VALUE;
-    border-bottom-right-radius: JIT VALUE
-}
-[dir="rtl"] .rounded-e-\\[JIT_VALUE\\] {
-    border-top-left-radius: JIT VALUE;
-    border-bottom-left-radius: JIT VALUE
-}`,
+  "rounded-e-[JIT_VALUE]": `[dir="ltr"] .rounded-e-\\[JIT_VALUE\\] { border-top-right-radius: JIT VALUE; border-bottom-right-radius: JIT VALUE }
+[dir="rtl"] .rounded-e-\\[JIT_VALUE\\] { border-top-left-radius: JIT VALUE; border-bottom-left-radius: JIT VALUE }`,
   "rounded-s-[JIT_VALUE]": `[dir="ltr"] .rounded-s-\\[JIT_VALUE\\] {
     border-top-left-radius: JIT VALUE;
     border-bottom-left-radius: JIT VALUE
 }
-[dir="rtl"] .rounded-s-\\[JIT_VALUE\\] {
-    border-top-right-radius: JIT VALUE;
-    border-bottom-right-radius: JIT VALUE
-}`,
+[dir="rtl"] .rounded-s-\\[JIT_VALUE\\] { border-top-right-radius: JIT VALUE; border-bottom-right-radius: JIT VALUE }`,
   "rounded-te-[JIT_VALUE]":
     '[dir="rtl"] .rounded-te-\\[JIT_VALUE\\] { border-top-left-radius: JIT VALUE } [dir="ltr"] .rounded-te-\\[JIT_VALUE\\] { border-top-right-radius: JIT VALUE }',
   "rounded-ts-[JIT_VALUE]":
@@ -78,7 +54,7 @@ const trimmer = (val) => val.replace(/\s+/g, " ").trim();
 Object.entries(rules).forEach(([className, expected]) => {
   it(className, () => {
     const output = postcss([
-      require("tailwindcss")({
+      tailwindcss({
         content: [
           {
             raw: className,
