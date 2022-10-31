@@ -56,7 +56,7 @@ module.exports = ({ matchUtilities, theme }) => {
     },
     {
       supportsNegativeValues: false,
-      values: theme("inset"),
+      values: theme("borderRadius"),
     }
   );
 };
