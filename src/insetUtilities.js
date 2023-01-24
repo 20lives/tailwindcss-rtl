@@ -5,7 +5,7 @@ module.exports = ({ matchUtilities, theme }) => {
         '[dir="rtl"] &': {
           right: value,
         },
-        '[dir="left"] &': {
+        '[dir="ltr"] &': {
           left: value,
         },
       }),
@@ -13,7 +13,7 @@ module.exports = ({ matchUtilities, theme }) => {
         '[dir="rtl"] &': {
           left: value,
         },
-        '[dir="left"] &': {
+        '[dir="ltr"] &': {
           right: value,
         },
       }),
