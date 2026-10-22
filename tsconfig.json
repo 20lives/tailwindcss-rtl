@@ -12,5 +12,6 @@
     "allowImportingTsExtensions": true,
     "types": ["node"]
   },
-  "include": ["src", "tests", "*.config.ts"]
+  "include": ["src", "tests", "*.config.ts"],
+  "exclude": ["tests/types/cjs.cts"]
 }
