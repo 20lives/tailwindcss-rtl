@@ -49,10 +49,13 @@ const inventoryB = [
   "rounded-ts-[3px]",
   "rounded-te",
   "rounded-te-lg",
+  "rounded-te-[3px]",
   "rounded-bs",
   "rounded-bs-lg",
+  "rounded-bs-[3px]",
   "rounded-be",
   "rounded-be-lg",
+  "rounded-be-[3px]",
   "space-s-4",
   "-space-s-4",
   "space-s-0.5",
@@ -160,6 +163,11 @@ describe("tailwindcss 4 theme", () => {
     expect(out).toContain("calc(var(--spacing) * 4)");
     expect(rulesFor(out, "space-s-4")).toHaveLength(1);
     expect(out).toMatch(/margin-inline-end: calc\(calc\(var\(--spacing\) \* 4\)/);
+  });
+
+  it("rejects bare values that are not a multiple of 0.25 or not an integer", async () => {
+    const out = await compile("4", ["space-s-0.3", "divide-s-1.5"]);
+    expect(out.trim()).toBe("");
   });
 });
 
