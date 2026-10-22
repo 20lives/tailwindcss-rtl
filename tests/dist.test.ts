@@ -8,6 +8,8 @@ const require = createRequire(import.meta.url);
 const cjsPath = fileURLToPath(new URL("../dist/index.cjs", import.meta.url));
 const esmPath = fileURLToPath(new URL("../dist/index.js", import.meta.url));
 
+const fixture = (name: string) => fileURLToPath(new URL(`./fixtures/${name}`, import.meta.url));
+
 const rtl: RtlPlugin = require(cjsPath);
 
 describe("dist build", () => {
@@ -43,6 +45,20 @@ describe("dist build", () => {
     expect(css).toContain(".bg-start");
     expect(css).toContain("background-position: left");
     expect(css).toContain(":where(:dir(rtl))");
+  });
+
+  it("loads the CJS build through @config on Tailwind 4", async () => {
+    const bare = await compile("4", ["bg-start"], undefined, {
+      pluginCss: `@config "${fixture("v4-bare.config.cjs")}";`,
+    });
+    expect(bare).toContain(".bg-start");
+
+    const css = await compile("4", ["bg-start"], undefined, {
+      base: true,
+      pluginCss: `@config "${fixture("v4-options.config.cjs")}";`,
+    });
+    expect(css).toContain(".bg-start");
+    expect(css).toContain("select:where(:dir(rtl))");
   });
 
   it("accepts options on Tailwind 4 from dist/index.js", async () => {
