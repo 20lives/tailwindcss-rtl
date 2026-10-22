@@ -53,6 +53,9 @@ async function compileV3(
     tailwind({
       content: [{ raw: classes.join(" ") }],
       ...config,
+      // Tailwind v3 reuses a context for identical configs and does not hash plugin options, so
+      // surface them as an unused config key to keep compilations with different options apart.
+      rtlOptions: options ?? null,
       corePlugins: { preflight: false, ...corePlugins },
       plugins: [options ? rtl(options) : rtl],
     }),

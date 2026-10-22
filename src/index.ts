@@ -1,6 +1,8 @@
 import plugin from "tailwindcss/plugin";
 import { detectCapabilities } from "./capabilities.ts";
+import { addFormsRtl } from "./forms.ts";
 import { addLogicalUtilities } from "./logical.ts";
+import { addMirroredUtilities } from "./mirrored.ts";
 import { addPluginOnlyUtilities } from "./plugin-only.ts";
 
 export interface RtlOptions {
@@ -14,10 +16,12 @@ export interface RtlPlugin {
   __isOptionsFunction: true;
 }
 
-const rtl = plugin.withOptions<RtlOptions>(() => (api) => {
+const rtl = plugin.withOptions<RtlOptions | undefined>((options) => (api) => {
   const caps = detectCapabilities(api);
   addLogicalUtilities(api, caps);
   addPluginOnlyUtilities(api, caps);
+  addMirroredUtilities(api, caps);
+  addFormsRtl(api, options?.forms);
 }) as unknown as RtlPlugin;
 
 export default rtl;

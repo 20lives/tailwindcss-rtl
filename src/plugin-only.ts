@@ -50,19 +50,4 @@ export function addPluginOnlyUtilities(api: PluginApi, caps: Capabilities): void
   addUtilities({
     ".divide-s-reverse > :not([hidden]) ~ :not([hidden])": { "--tw-divide-s-reverse": "1" },
   });
-
-  // No logical CSS equivalent: LTR value as the base declaration, RTL value nested in the same
-  // rule so specificity stays one class and nested `dir` islands work.
-  const origin = (ltr: string, rtl: string) => ({
-    "transform-origin": ltr,
-    "&:where(:dir(rtl))": { "transform-origin": rtl },
-  });
-  addUtilities({
-    ".origin-start": origin("left", "right"),
-    ".origin-end": origin("right", "left"),
-    ".origin-top-start": origin("top left", "top right"),
-    ".origin-top-end": origin("top right", "top left"),
-    ".origin-bottom-start": origin("bottom left", "bottom right"),
-    ".origin-bottom-end": origin("bottom right", "bottom left"),
-  });
 }
