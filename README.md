@@ -2,7 +2,7 @@
   tailwindcss-rtl
 </h1>
 <p align="center">
-  <a href="https://workcation-rtl.netlify.com/en/" >
+  <a href="https://workcation-rtl.netlify.app/en/" >
     <img src="https://i.imgur.com/QSY8nNU.gif">
   </a>
 </p>
@@ -38,8 +38,6 @@ Tailwind has been adding logical utilities itself. This table shows what core pr
 | 3.4 (Dec 2023) | `float-start`, `float-end`, `clear-start`, `clear-end` |
 | 4.0 (Jan 2025) | `space-x-*` and `divide-x-*` use logical properties |
 | 4.2 (Feb 2026) | `inset-s/e/bs/be-*`, `pbs/pbe-*`, `mbs/mbe-*`, `border-bs/be`, `inline-*` and `block-*` sizes. `start-*` and `end-*` are deprecated in favor of `inset-s-*` and `inset-e-*`. |
-
-The latest Tailwind release is 4.3.
 
 This plugin fills the rest:
 
@@ -96,7 +94,7 @@ module.exports = {
 };
 ```
 
-Or, in an ESM config:
+Or, in an ESM or TypeScript config (Tailwind 3.3+):
 
 ```js
 import rtl from "tailwindcss-rtl";
@@ -118,6 +116,8 @@ Put `dir="rtl"` on the `<html>` element of right-to-left pages:
 ```
 
 Left-to-right is the default, so LTR pages need no `dir` attribute. Setting `dir="ltr"` is optional.
+
+Set the direction with the `dir` attribute, not with CSS `direction: rtl`. The logical properties follow either, but `origin-*`, `bg-*`, `translate-s-*`/`translate-e-*` and the `forms` option follow only `dir` (they use `:dir()`).
 
 Then replace utilities based on left and right with the logical ones from [Utilities](#utilities). For example, left padding on an LTR layout is `pl-6`. Left is the start side in LTR, so write `ps-6`.
 
@@ -165,7 +165,7 @@ The direction is read from the nearest `dir` attribute, so a part of the page ca
 
 Notes:
 
-- `rounded-ts`, `rounded-te`, `rounded-bs` and `rounded-be` are equivalent to core's `rounded-ss`, `rounded-se`, `rounded-es` and `rounded-ee` (Tailwind 3.3+). The plugin names work on every supported Tailwind version; on 3.3+ you can use the core names instead.
+- `rounded-ts`, `rounded-te`, `rounded-bs` and `rounded-be` are equivalent to core's `rounded-ss`, `rounded-se`, `rounded-es` and `rounded-ee` (Tailwind 3.3+). The plugin names work on every supported Tailwind version; on 3.3+ you can use the core names instead. `rounded-bs` and `rounded-be` are bottom-start and bottom-end (core `rounded-es`/`rounded-ee`), not the block-axis `bs`/`be` of Tailwind 4.2.
 - `space-s-*` is equivalent to core `space-x-*` on Tailwind v4, which is already logical. On v3, core `space-x-*` is physical (left and right), so use `space-s-*` there. The same applies to `divide-s-*` and `divide-x-*`.
 - `translate-e-4` moves an element toward the inline end (right in LTR, left in RTL), and `translate-s-4` moves it toward the inline start. They compose with the other transform utilities. On Tailwind v3 they write the whole `transform` property after the core utilities, so an unprefixed `transform-none` on the same element does not cancel them. Use a variant (for example `md:transform-none`) or remove the class.
 - On Tailwind v4, spacing values follow your theme: `@theme { --spacing: 3px; }` changes `space-s-*` and `translate-s-*`/`translate-e-*`, just like core utilities.
@@ -179,9 +179,9 @@ Mirrors the select arrow (and its padding) of [`@tailwindcss/forms`](https://git
 
 | Value | Effect |
 | --- | --- |
-| `true` | Both strategies below |
-| `"base"` | Styles `select` elements (the `@tailwindcss/forms` default strategy) |
-| `"class"` | Styles `.form-select` (the `@tailwindcss/forms` `class` strategy) |
+| `true` | Both strategies below, matching the `@tailwindcss/forms` default (it also applies both) |
+| `"base"` | Styles `select` elements; matches forms' `strategy: 'base'` |
+| `"class"` | Styles `.form-select`; matches forms' `strategy: 'class'` |
 
 Register `tailwindcss-rtl` **after** `@tailwindcss/forms`; the RTL rules have to come later to take effect.
 
@@ -237,6 +237,7 @@ On Tailwind 4.2+, you can write `before:inset-s-0` instead of `before:start-0`.
 ## Browser support
 
 - `origin-*`, `bg-*`, `translate-s-*`, `translate-e-*` and the `forms` option use the CSS [`:dir()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:dir) pseudo-class for the RTL value. It is supported in Chrome 120+, Safari 16.4+ and Firefox 49+. In older browsers these utilities fall back to their LTR value.
+- `float-start`, `float-end`, `clear-start` and `clear-end` use the `inline-start` and `inline-end` values, which need Chrome 118+, Safari 15+ and Firefox 55+. The plugin emits them on Tailwind 3.0 – 3.3; on 3.4+ and 4, Tailwind core emits the same values.
 - All other utilities use [CSS logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values). Check the support tables there against your browser targets.
 
 ## Migrating from 0.x
@@ -246,10 +247,11 @@ On Tailwind 4.2+, you can write `before:inset-s-0` instead of `before:start-0`.
 - **Tailwind 2 and older:** no longer supported. Stay on `tailwindcss-rtl@0.9`. Tailwind 3.0 to 3.4 and 4.x are supported.
 - **No more `[dir]` selectors.** Each utility is now a single class, so responsive and state variants (`sm:`, `hover:`) override it as expected ([#25](https://github.com/20lives/tailwindcss-rtl/issues/25)). Nested `dir` islands work ([#67](https://github.com/20lives/tailwindcss-rtl/issues/67)).
 - **`dir="ltr"` is no longer required.** LTR is the default; only RTL pages need `dir="rtl"`.
+- **Browser support changed.** 0.9 used `[dir]` attribute selectors, which work in every browser. 1.0 uses `:dir()` for `origin-*`, `bg-*`, `translate-s-*`/`translate-e-*` and the `forms` option (Chrome 120, Safari 16.4, Firefox 49) and logical values for `float`/`clear`. Check your browser targets in [Browser support](#browser-support).
 - **Classes Tailwind already has are left to Tailwind.** The plugin generates a class only if your Tailwind version lacks it.
 - **Invalid negatives are gone.** Negative padding, border width, divide width and border radius used to generate invalid CSS; they are no longer generated.
 - **`start-*` and `end-*` work in LTR again** ([#69](https://github.com/20lives/tailwindcss-rtl/issues/69), thanks to [#64](https://github.com/20lives/tailwindcss-rtl/pull/64)).
-- **`rounded-ts/te/bs/be` still work.** On Tailwind 3.3+ they map to core's `rounded-ss/se/es/ee`; consider switching.
+- **`rounded-ts/te/bs/be` still work.** On Tailwind 3.3+ they are equivalent to core's `rounded-ss/se/es/ee`; consider switching.
 - **On Tailwind 4.2+,** Tailwind deprecates `start-*`/`end-*` in favor of `inset-s-*`/`inset-e-*`.
 - **Tailwind v4 values follow your `@theme`** (for example `--spacing`).
 - **TypeScript types are included**, for both ESM and CJS.
@@ -266,6 +268,7 @@ pnpm test        # builds, then runs the suite against Tailwind 3.0, 3.2, 3.3, 3
 pnpm lint
 pnpm typecheck
 pnpm check       # publint and are-the-types-wrong on the packed package
+pnpm smoke       # builds, installs the packed package into projects on Tailwind 3.0, 3.4 and 4 (needs network)
 ```
 
 ### Releasing
