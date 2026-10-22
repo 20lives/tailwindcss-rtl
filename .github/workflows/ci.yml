@@ -26,3 +26,23 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm check
+
+  smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      # tsdown needs Node >= 22.18, so build on 24 and run the packed-package check on the matrix Node.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node scripts/smoke.mjs
