@@ -1,0 +1,247 @@
+.-end-4 {
+    inset-inline-end: -1rem;
+}
+.-start-4 {
+    inset-inline-start: -1rem;
+}
+.end-4 {
+    inset-inline-end: 1rem;
+}
+.end-\[10\%\] {
+    inset-inline-end: 10%;
+}
+.start-1\/2 {
+    inset-inline-start: 50%;
+}
+.start-4 {
+    inset-inline-start: 1rem;
+}
+.start-\[10\%\] {
+    inset-inline-start: 10%;
+}
+.-me-4 {
+    margin-inline-end: -1rem;
+}
+.-ms-4 {
+    margin-inline-start: -1rem;
+}
+.me-4 {
+    margin-inline-end: 1rem;
+}
+.me-\[3px\] {
+    margin-inline-end: 3px;
+}
+.ms-4 {
+    margin-inline-start: 1rem;
+}
+.ms-\[3px\] {
+    margin-inline-start: 3px;
+}
+.ms-auto {
+    margin-inline-start: auto;
+}
+.rounded-e {
+    border-start-end-radius: 0.25rem;
+    border-end-end-radius: 0.25rem;
+}
+.rounded-e-\[3px\] {
+    border-start-end-radius: 3px;
+    border-end-end-radius: 3px;
+}
+.rounded-e-lg {
+    border-start-end-radius: 0.5rem;
+    border-end-end-radius: 0.5rem;
+}
+.rounded-s {
+    border-start-start-radius: 0.25rem;
+    border-end-start-radius: 0.25rem;
+}
+.rounded-s-\[3px\] {
+    border-start-start-radius: 3px;
+    border-end-start-radius: 3px;
+}
+.rounded-s-lg {
+    border-start-start-radius: 0.5rem;
+    border-end-start-radius: 0.5rem;
+}
+.border-e {
+    border-inline-end-width: 1px;
+}
+.border-e-4 {
+    border-inline-end-width: 4px;
+}
+.border-e-\[3px\] {
+    border-inline-end-width: 3px;
+}
+.border-s {
+    border-inline-start-width: 1px;
+}
+.border-s-2 {
+    border-inline-start-width: 2px;
+}
+.border-s-\[3px\] {
+    border-inline-start-width: 3px;
+}
+.pe-4 {
+    padding-inline-end: 1rem;
+}
+.pe-\[3px\] {
+    padding-inline-end: 3px;
+}
+.ps-4 {
+    padding-inline-start: 1rem;
+}
+.ps-\[3px\] {
+    padding-inline-start: 3px;
+}
+.text-start {
+    text-align: start;
+}
+.text-end {
+    text-align: end;
+}
+.float-start {
+    float: inline-start;
+}
+.float-end {
+    float: inline-end;
+}
+.clear-start {
+    clear: inline-start;
+}
+.clear-end {
+    clear: inline-end;
+}
+.rounded-be {
+    border-end-end-radius: 0.25rem;
+}
+.rounded-be-lg {
+    border-end-end-radius: 0.5rem;
+}
+.rounded-bs {
+    border-end-start-radius: 0.25rem;
+}
+.rounded-bs-lg {
+    border-end-start-radius: 0.5rem;
+}
+.rounded-te {
+    border-start-end-radius: 0.25rem;
+}
+.rounded-te-lg {
+    border-start-end-radius: 0.5rem;
+}
+.rounded-ts {
+    border-start-start-radius: 0.25rem;
+}
+.rounded-ts-\[3px\] {
+    border-start-start-radius: 3px;
+}
+.rounded-ts-lg {
+    border-start-start-radius: 0.5rem;
+}
+.-space-s-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 0;
+    margin-inline-end: calc(-1rem * var(--tw-space-s-reverse));
+    margin-inline-start: calc(-1rem * calc(1 - var(--tw-space-s-reverse)));
+}
+.space-s-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 0;
+    margin-inline-end: calc(0px * var(--tw-space-s-reverse));
+    margin-inline-start: calc(0px * calc(1 - var(--tw-space-s-reverse)));
+}
+.space-s-0\.5 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 0;
+    margin-inline-end: calc(0.125rem * var(--tw-space-s-reverse));
+    margin-inline-start: calc(0.125rem * calc(1 - var(--tw-space-s-reverse)));
+}
+.space-s-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 0;
+    margin-inline-end: calc(1rem * var(--tw-space-s-reverse));
+    margin-inline-start: calc(1rem * calc(1 - var(--tw-space-s-reverse)));
+}
+.space-s-\[3px\] > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 0;
+    margin-inline-end: calc(3px * var(--tw-space-s-reverse));
+    margin-inline-start: calc(3px * calc(1 - var(--tw-space-s-reverse)));
+}
+.space-s-px > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 0;
+    margin-inline-end: calc(1px * var(--tw-space-s-reverse));
+    margin-inline-start: calc(1px * calc(1 - var(--tw-space-s-reverse)));
+}
+.space-s-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 1;
+}
+.divide-s > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-s-reverse: 0;
+    border-inline-end-width: calc(1px * var(--tw-divide-s-reverse));
+    border-inline-start-width: calc(1px * calc(1 - var(--tw-divide-s-reverse)));
+}
+.divide-s-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-s-reverse: 0;
+    border-inline-end-width: calc(2px * var(--tw-divide-s-reverse));
+    border-inline-start-width: calc(2px * calc(1 - var(--tw-divide-s-reverse)));
+}
+.divide-s-\[3px\] > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-s-reverse: 0;
+    border-inline-end-width: calc(3px * var(--tw-divide-s-reverse));
+    border-inline-start-width: calc(3px * calc(1 - var(--tw-divide-s-reverse)));
+}
+.divide-s-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-s-reverse: 1;
+}
+.origin-start {
+    transform-origin: left;
+}
+.origin-start:where(:dir(rtl)) {
+    transform-origin: right;
+}
+.origin-end {
+    transform-origin: right;
+}
+.origin-end:where(:dir(rtl)) {
+    transform-origin: left;
+}
+.origin-top-start {
+    transform-origin: top left;
+}
+.origin-top-start:where(:dir(rtl)) {
+    transform-origin: top right;
+}
+.origin-top-end {
+    transform-origin: top right;
+}
+.origin-top-end:where(:dir(rtl)) {
+    transform-origin: top left;
+}
+.origin-bottom-start {
+    transform-origin: bottom left;
+}
+.origin-bottom-start:where(:dir(rtl)) {
+    transform-origin: bottom right;
+}
+.origin-bottom-end {
+    transform-origin: bottom right;
+}
+.origin-bottom-end:where(:dir(rtl)) {
+    transform-origin: bottom left;
+}
+.hover\:ms-4:hover {
+    margin-inline-start: 1rem;
+}
+.hover\:space-s-4:hover > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-s-reverse: 0;
+    margin-inline-end: calc(1rem * var(--tw-space-s-reverse));
+    margin-inline-start: calc(1rem * calc(1 - var(--tw-space-s-reverse)));
+}
+@media (min-width: 768px) {
+    .md\:ms-4 {
+        margin-inline-start: 1rem;
+    }
+    .md\:origin-start {
+        transform-origin: left;
+    }
+    .md\:origin-start:where(:dir(rtl)) {
+        transform-origin: right;
+    }
+}
