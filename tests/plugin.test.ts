@@ -74,7 +74,33 @@ const inventoryB = [
   "origin-bottom-end",
 ];
 
-const variantSamples = ["md:ms-4", "hover:ms-4", "md:origin-start", "hover:space-s-4"];
+/** Inventory C: utilities new in 1.0. */
+const inventoryC = [
+  "bg-start",
+  "bg-end",
+  "bg-top-start",
+  "bg-top-end",
+  "bg-bottom-start",
+  "bg-bottom-end",
+  "translate-e-4",
+  "-translate-e-4",
+  "translate-e-1/2",
+  "translate-e-px",
+  "translate-e-[3px]",
+  "translate-s-4",
+  "-translate-s-4",
+  "translate-s-1/2",
+  "translate-s-[3px]",
+];
+
+const variantSamples = [
+  "md:ms-4",
+  "hover:ms-4",
+  "md:origin-start",
+  "hover:space-s-4",
+  "md:translate-e-4",
+  "md:bg-start",
+];
 
 const escapeClass = (name: string) => name.replace(/[^\w-]/g, (char) => `\\${char}`);
 
@@ -91,11 +117,57 @@ function rulesFor(css: string, name: string): string[] {
   return found;
 }
 
+const normalize = (selector: string) => selector.replace(/\s+/g, " ");
+
+/** Declarations written directly in the rule with this exact selector. */
+function declarations(css: string, selector: string): Record<string, string> {
+  const found: Record<string, string> = {};
+  postcss.parse(css).walkRules((rule) => {
+    if (normalize(rule.selector) !== selector) return;
+    rule.each((node) => {
+      if (node.type === "decl") found[node.prop] = node.value;
+    });
+  });
+  return found;
+}
+
+/** The base declarations of a utility and its RTL override, whether flat (v3) or nested (v4). */
+function mirroredDeclarations(css: string, name: string) {
+  const selector = `.${escapeClass(name)}`;
+  const flat = declarations(css, `${selector}:where(:dir(rtl))`);
+  const nested = declarations(css, "&:where(:dir(rtl))");
+  return {
+    ltr: declarations(css, selector),
+    rtl: Object.keys(flat).length > 0 ? flat : nested,
+  };
+}
+
+const allSelectors = (css: string): string[] => {
+  const selectors: string[] = [];
+  postcss.parse(css).walkRules((rule) => {
+    selectors.push(normalize(rule.selector));
+  });
+  return selectors;
+};
+
+const FORMS_RULES = {
+  baseArrow: "select:where(:dir(rtl))",
+  baseReset:
+    'select:where([multiple]):where(:dir(rtl)), select:where([size]:not([size="1"])):where(:dir(rtl))',
+  classArrow: ".form-select:where(:dir(rtl))",
+  classReset: '.form-select:where([size]:not([size="1"])):where(:dir(rtl))',
+};
+
+const V3_TRANSFORM =
+  "translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1))";
+
+const v3Versions = versions.filter((tw) => tw !== "4");
+
 describe.each(versions)("tailwindcss %s", (tw: TwVersion) => {
   let css: string;
 
   beforeAll(async () => {
-    css = await compile(tw, [...inventoryA, ...inventoryB, ...variantSamples]);
+    css = await compile(tw, [...inventoryA, ...inventoryB, ...inventoryC, ...variantSamples]);
   });
 
   it("matches the CSS snapshot of every class", async () => {
@@ -107,7 +179,7 @@ describe.each(versions)("tailwindcss %s", (tw: TwVersion) => {
   });
 
   it("emits exactly one rule per class, never duplicating core", () => {
-    for (const name of [...inventoryA, ...inventoryB]) {
+    for (const name of [...inventoryA, ...inventoryB, ...inventoryC]) {
       expect(rulesFor(css, name), name).toHaveLength(1);
     }
   });
@@ -118,6 +190,8 @@ describe.each(versions)("tailwindcss %s", (tw: TwVersion) => {
       "sm:text-center",
       "origin-start",
       "sm:origin-center",
+      "bg-start",
+      "sm:bg-center",
     ]);
     const selectors: string[] = [];
     postcss.parse(out).walkRules((rule) => {
@@ -129,9 +203,11 @@ describe.each(versions)("tailwindcss %s", (tw: TwVersion) => {
     expect(index(".text-start")).toBeLessThan(index(".sm\\:text-center"));
     expect(index(".origin-start")).toBeGreaterThanOrEqual(0);
     expect(index(".origin-start")).toBeLessThan(index(".sm\\:origin-center"));
+    expect(index(".bg-start")).toBeGreaterThanOrEqual(0);
+    expect(index(".bg-start")).toBeLessThan(index(".sm\\:bg-center"));
 
     for (const selector of selectors) {
-      if (!/text-start|origin-start/.test(selector)) continue;
+      if (!/text-start|origin-start|bg-start/.test(selector)) continue;
       const withoutWhere = selector.replace(/:where\((?:[^()]|\([^()]*\))*\)/g, "");
       expect(withoutWhere.match(/\./g), selector).toHaveLength(1);
     }
@@ -177,5 +253,108 @@ describe("tailwindcss 3.4 with a disabled core plugin", () => {
       config: { corePlugins: { margin: false } },
     });
     expect(out).toContain("margin-inline-start");
+  });
+});
+
+describe.each(v3Versions)("tailwindcss %s translate-s/e", (tw: TwVersion) => {
+  it("mirrors the x offset and sets the exact v3 transform", async () => {
+    const e = mirroredDeclarations(await compile(tw, ["translate-e-4"]), "translate-e-4");
+    expect(e.ltr).toEqual({ "--tw-translate-x": "1rem", transform: V3_TRANSFORM });
+    expect(e.rtl).toEqual({ "--tw-translate-x": "calc(1rem * -1)" });
+  });
+
+  it("supports negative values", async () => {
+    const s = mirroredDeclarations(await compile(tw, ["-translate-s-4"]), "-translate-s-4");
+    expect(s.ltr["--tw-translate-x"]).toBe("calc(-1rem * -1)");
+    expect(s.rtl).toEqual({ "--tw-translate-x": "-1rem" });
+  });
+
+  it("resolves fractions and arbitrary values", async () => {
+    const half = mirroredDeclarations(await compile(tw, ["translate-e-1/2"]), "translate-e-1/2");
+    expect(half.ltr["--tw-translate-x"]).toBe("50%");
+    const arbitrary = mirroredDeclarations(
+      await compile(tw, ["translate-e-[3px]"]),
+      "translate-e-[3px]",
+    );
+    expect(arbitrary.ltr["--tw-translate-x"]).toBe("3px");
+  });
+});
+
+describe("tailwindcss 4 translate-s/e", () => {
+  it("follows a custom --spacing and uses the translate property", async () => {
+    const out = await compile("4", ["translate-e-4"], undefined, { theme: "--spacing: 3px;" });
+    const e = mirroredDeclarations(out, "translate-e-4");
+    expect(e.ltr).toEqual({
+      "--tw-translate-x": "calc(var(--spacing) * 4)",
+      translate: "var(--tw-translate-x) var(--tw-translate-y, 0)",
+    });
+    expect(e.rtl).toEqual({ "--tw-translate-x": "calc(calc(var(--spacing) * 4) * -1)" });
+    expect(out).not.toContain("1rem");
+  });
+
+  it("resolves theme keys such as 1/2 and arbitrary values", async () => {
+    const half = mirroredDeclarations(await compile("4", ["translate-e-1/2"]), "translate-e-1/2");
+    expect(half.ltr["--tw-translate-x"]).toBe("50%");
+    const arbitrary = mirroredDeclarations(
+      await compile("4", ["translate-e-[3px]"]),
+      "translate-e-[3px]",
+    );
+    expect(arbitrary.ltr["--tw-translate-x"]).toBe("3px");
+  });
+});
+
+describe.each(versions)("tailwindcss %s forms option", (tw: TwVersion) => {
+  const rulesOf = async (options?: { forms?: boolean | "base" | "class" }) =>
+    allSelectors(await compile(tw, ["form-select"], options, { base: true }));
+  const emitted = (selectors: string[]) =>
+    Object.entries(FORMS_RULES)
+      .filter(([, selector]) => selectors.includes(selector))
+      .map(([key]) => key);
+
+  it("emits nothing by default or when disabled", async () => {
+    expect(emitted(await rulesOf())).toEqual([]);
+    expect(emitted(await rulesOf({ forms: false }))).toEqual([]);
+  });
+
+  it("emits both strategies for true, each reset after its arrow rule", async () => {
+    const selectors = await rulesOf({ forms: true });
+    expect(emitted(selectors)).toHaveLength(4);
+    const index = (key: keyof typeof FORMS_RULES) => selectors.indexOf(FORMS_RULES[key]);
+    expect(index("baseArrow")).toBeLessThan(index("baseReset"));
+    expect(index("classArrow")).toBeLessThan(index("classReset"));
+  });
+
+  it("emits only the select rules for base", async () => {
+    expect(emitted(await rulesOf({ forms: "base" }))).toEqual(["baseArrow", "baseReset"]);
+  });
+
+  it("emits only the .form-select rules for class", async () => {
+    expect(emitted(await rulesOf({ forms: "class" }))).toEqual(["classArrow", "classReset"]);
+  });
+
+  it("mirrors the select arrow and padding", async () => {
+    const css = await compile(tw, ["form-select"], { forms: true }, { base: true });
+    expect(declarations(css, FORMS_RULES.baseArrow)).toEqual({
+      "background-position": "left 0.5rem center",
+      "padding-right": "0.75rem",
+      "padding-left": "2.5rem",
+    });
+    expect(declarations(css, FORMS_RULES.classReset)).toEqual({
+      "background-position": "initial",
+      "padding-left": "0.75rem",
+    });
+  });
+});
+
+// On v4 the base rules sit in `@layer base` and the class rules in `@layer utilities`, so cascade
+// layers order them; on v3 the base layer is emitted before components.
+describe.each(v3Versions)("tailwindcss %s forms ordering", (tw: TwVersion) => {
+  it("emits the base rules before the class rules", async () => {
+    const css = await compile(tw, ["form-select"], { forms: true }, { base: true });
+    const selectors = allSelectors(css);
+    expect(selectors.indexOf(FORMS_RULES.baseReset)).toBeGreaterThanOrEqual(0);
+    expect(selectors.indexOf(FORMS_RULES.baseReset)).toBeLessThan(
+      selectors.indexOf(FORMS_RULES.classArrow),
+    );
   });
 });

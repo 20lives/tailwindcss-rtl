@@ -230,6 +230,105 @@
 .origin-bottom-end:where(:dir(rtl)) {
     transform-origin: bottom left;
 }
+.bg-start {
+    background-position: left;
+}
+.bg-start:where(:dir(rtl)) {
+    background-position: right;
+}
+.bg-end {
+    background-position: right;
+}
+.bg-end:where(:dir(rtl)) {
+    background-position: left;
+}
+.bg-top-start {
+    background-position: top left;
+}
+.bg-top-start:where(:dir(rtl)) {
+    background-position: top right;
+}
+.bg-top-end {
+    background-position: top right;
+}
+.bg-top-end:where(:dir(rtl)) {
+    background-position: top left;
+}
+.bg-bottom-start {
+    background-position: bottom left;
+}
+.bg-bottom-start:where(:dir(rtl)) {
+    background-position: bottom right;
+}
+.bg-bottom-end {
+    background-position: bottom right;
+}
+.bg-bottom-end:where(:dir(rtl)) {
+    background-position: bottom left;
+}
+.-translate-e-4 {
+    --tw-translate-x: -1rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.-translate-e-4:where(:dir(rtl)) {
+    --tw-translate-x: calc(-1rem * -1);
+}
+.-translate-s-4 {
+    --tw-translate-x: calc(-1rem * -1);
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.-translate-s-4:where(:dir(rtl)) {
+    --tw-translate-x: -1rem;
+}
+.translate-e-1\/2 {
+    --tw-translate-x: 50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.translate-e-1\/2:where(:dir(rtl)) {
+    --tw-translate-x: calc(50% * -1);
+}
+.translate-e-4 {
+    --tw-translate-x: 1rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.translate-e-4:where(:dir(rtl)) {
+    --tw-translate-x: calc(1rem * -1);
+}
+.translate-e-\[3px\] {
+    --tw-translate-x: 3px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.translate-e-\[3px\]:where(:dir(rtl)) {
+    --tw-translate-x: calc(3px * -1);
+}
+.translate-e-px {
+    --tw-translate-x: 1px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.translate-e-px:where(:dir(rtl)) {
+    --tw-translate-x: calc(1px * -1);
+}
+.translate-s-1\/2 {
+    --tw-translate-x: calc(50% * -1);
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.translate-s-1\/2:where(:dir(rtl)) {
+    --tw-translate-x: 50%;
+}
+.translate-s-4 {
+    --tw-translate-x: calc(1rem * -1);
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.translate-s-4:where(:dir(rtl)) {
+    --tw-translate-x: 1rem;
+}
+.translate-s-\[3px\] {
+    --tw-translate-x: calc(3px * -1);
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+.translate-s-\[3px\]:where(:dir(rtl)) {
+    --tw-translate-x: 3px;
+}
 .hover\:ms-4:hover {
     margin-inline-start: 1rem;
 }
@@ -247,5 +346,18 @@
     }
     .md\:origin-start:where(:dir(rtl)) {
         transform-origin: right;
+    }
+    .md\:bg-start {
+        background-position: left;
+    }
+    .md\:bg-start:where(:dir(rtl)) {
+        background-position: right;
+    }
+    .md\:translate-e-4 {
+        --tw-translate-x: 1rem;
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+    }
+    .md\:translate-e-4:where(:dir(rtl)) {
+        --tw-translate-x: calc(1rem * -1);
     }
 }
