@@ -12,9 +12,7 @@ const INTEGER = /^\d+$/;
 
 /** Theme entries whose keys are not plain numbers; numeric keys come from bare values on v4. */
 function namedValues(theme: ThemeValues): ThemeValues {
-  return Object.fromEntries(
-    Object.entries(theme).filter(([key]) => !NUMBER.test(key) && key !== "__BARE_VALUE__"),
-  );
+  return Object.fromEntries(Object.entries(theme).filter(([key]) => !NUMBER.test(key)));
 }
 
 /**
