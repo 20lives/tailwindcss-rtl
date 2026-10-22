@@ -11,7 +11,9 @@ Supports Tailwind CSS 3.0 – 3.4 and 4.x. Every class name from 0.x keeps worki
 - `dir="ltr"` is no longer required; LTR is the default and only RTL pages need `dir="rtl"`.
 - Classes that Tailwind core already generates are no longer emitted by the plugin, so core's output is always used ([#39], [#54]).
 - Negative padding, border width, divide width and border radius are no longer generated (they were invalid CSS).
-- The peer dependency is `tailwindcss ^3.0.0 || ^4.0.0`. Node.js 20 or newer is required.
+- The peer dependency is `tailwindcss ^3.0.0 || ^4.0.0` ([#62]). Node.js 20 or newer is required.
+- Browser support changed: 0.9 used `[dir]` attribute selectors, which work in every browser. 1.0 uses the `:dir()` pseudo-class for `origin-*`, `bg-*`, `translate-s-*`/`translate-e-*` and the `forms` option (Chrome 120, Safari 16.4, Firefox 49), and logical `float`/`clear` values for `float-start`/`float-end`/`clear-start`/`clear-end` on Tailwind 3.0 – 3.3. See [Browser support](README.md#browser-support).
+- The package now has an `exports` map, so deep imports such as `tailwindcss-rtl/src/index.js` no longer resolve. `require("tailwindcss-rtl")` returns an options function: call it, or pass it to `plugins`; reading `.handler` from it directly no longer works.
 
 ### Added
 
@@ -35,7 +37,7 @@ Supports Tailwind CSS 3.0 – 3.4 and 4.x. Every class name from 0.x keeps worki
 ### Changed
 
 - Rewritten in TypeScript and built with tsdown. Tooling moved to pnpm, Biome and Vitest.
-- Tests run against Tailwind 3.0, 3.2, 3.3, 3.4 and 4, with CI on Node 22 and 24.
+- Tests run against Tailwind 3.0, 3.2, 3.3, 3.4 and 4 on Node 22 and 24. A smoke check installs the packed package into projects on Tailwind 3.0, 3.4 and 4 and runs on Node 20, 22 and 24.
 - README rewritten: Tailwind core coverage table, setup for v3 and v4, recipes and browser support.
 - Releases are published from a version tag with npm trusted publishing.
 
@@ -48,6 +50,7 @@ Supports Tailwind CSS 3.0 – 3.4 and 4.x. Every class name from 0.x keeps worki
 [#53]: https://github.com/20lives/tailwindcss-rtl/issues/53
 [#54]: https://github.com/20lives/tailwindcss-rtl/issues/54
 [#60]: https://github.com/20lives/tailwindcss-rtl/pull/60
+[#62]: https://github.com/20lives/tailwindcss-rtl/issues/62
 [#64]: https://github.com/20lives/tailwindcss-rtl/pull/64
 [#65]: https://github.com/20lives/tailwindcss-rtl/issues/65
 [#66]: https://github.com/20lives/tailwindcss-rtl/issues/66
