@@ -291,6 +291,32 @@ describe.each(["3.4", "3.2"] as const)(
   },
 );
 
+describe.each(["3.0", "3.2"] as const)(
+  "tailwindcss %s with plugins that add newer theme keys",
+  (tw: TwVersion) => {
+    it("keeps every gap-filler when lineClamp, size and borderSpacing are in the theme", async () => {
+      // e.g. @tailwindcss/line-clamp adds theme.lineClamp; that must not look like Tailwind 3.3.
+      const out = await compile(
+        tw,
+        ["ms-4", "ps-4", "start-4", "text-start", "float-start"],
+        undefined,
+        {
+          config: {
+            theme: {
+              extend: { lineClamp: { 1: "1" }, size: { 4: "1rem" }, borderSpacing: { 1: "1px" } },
+            },
+          },
+        },
+      );
+      expect(declarations(out, ".ms-4")).toEqual({ "margin-inline-start": "1rem" });
+      expect(declarations(out, ".ps-4")).toEqual({ "padding-inline-start": "1rem" });
+      expect(declarations(out, ".start-4")).toEqual({ "inset-inline-start": "1rem" });
+      expect(rulesFor(out, "text-start")).toHaveLength(1);
+      expect(rulesFor(out, "float-start")).toHaveLength(1);
+    });
+  },
+);
+
 describe.each(v3Versions)("tailwindcss %s translate-s/e", (tw: TwVersion) => {
   it("mirrors the x offset and sets the exact v3 transform", async () => {
     const e = mirroredDeclarations(await compile(tw, ["translate-e-4"]), "translate-e-4");

@@ -21,7 +21,7 @@ function namedValues(theme: ThemeValues): ThemeValues {
  * applies; like core, only non-negative multiples of 0.25 are accepted.
  */
 export function spacingValues(api: PluginApi, caps: Capabilities, themeKey: string): ThemeValues {
-  const theme = api.theme(themeKey);
+  const theme = api.theme(themeKey) ?? {};
   if (!caps.v4) return theme;
   return {
     ...namedValues(theme),
@@ -34,7 +34,7 @@ export function spacingValues(api: PluginApi, caps: Capabilities, themeKey: stri
 
 /** `values` for divide-s: on v4 a bare integer N is N pixels, like core's divide width. */
 export function divideWidthValues(api: PluginApi, caps: Capabilities): ThemeValues {
-  const theme = api.theme("divideWidth");
+  const theme = api.theme("divideWidth") ?? {};
   if (!caps.v4) return theme;
   return {
     ...namedValues(theme),
@@ -48,7 +48,7 @@ export function divideWidthValues(api: PluginApi, caps: Capabilities): ThemeValu
  * string as the keys "0".."6" into `theme("borderRadius")`, so pure-digit keys are dropped.
  */
 export function radiusValues(api: PluginApi, caps: Capabilities): ThemeValues {
-  const theme = api.theme("borderRadius");
+  const theme = api.theme("borderRadius") ?? {};
   if (!caps.v4) return theme;
   return Object.fromEntries(Object.entries(theme).filter(([key]) => !INTEGER.test(key)));
 }

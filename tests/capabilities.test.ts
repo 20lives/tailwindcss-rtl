@@ -74,28 +74,31 @@ describe("detectCapabilities", () => {
     const marginIsCore = (themeKeys: string[]) =>
       detectCapabilities(fakeApi(restricted, themeKeys)).core.margin;
 
-    it("reads the version from theme markers", () => {
+    const v33Theme = ["gradientColorStopPositions", "listStyleImage"];
+
+    it("recognises 3.3 only from the pair of 3.3 theme keys", () => {
       expect(marginIsCore([])).toBe(false);
-      expect(marginIsCore(["borderSpacing"])).toBe(false);
-      for (const marker of ["lineClamp", "listStyleImage", "gradientColorStopPositions", "size"]) {
-        expect(marginIsCore([marker]), marker).toBe(true);
-      }
+      expect(marginIsCore(v33Theme)).toBe(true);
+      expect(marginIsCore(["gradientColorStopPositions"])).toBe(false);
+      expect(marginIsCore(["listStyleImage"])).toBe(false);
     });
 
-    it("detects 3.1 from the borderSpacing theme key", () => {
-      const caps = detectCapabilities(fakeApi(["textAlign"], ["borderSpacing"]));
-      expect(caps.core).toEqual({ ...all(false), textAlign: true });
+    it("leaves float and clear to this plugin (identical duplicates at worst)", () => {
+      const caps = detectCapabilities(fakeApi(["margin", "float"], [...v33Theme, "size"]));
+      expect(caps.core).toEqual({ ...all(false), margin: true });
     });
 
-    it("detects 3.4 from the size theme key, so float and clear are core's", () => {
-      const caps = detectCapabilities(fakeApi(["margin", "float"], ["size"]));
-      expect(caps.core).toEqual({ ...all(false), margin: true, float: true });
-    });
-
-    it("still treats a disabled feature as missing on 3.4", () => {
-      const caps = detectCapabilities(fakeApi([], ["size"]));
+    it("still treats a disabled feature as missing", () => {
+      const caps = detectCapabilities(fakeApi([], v33Theme));
       expect(caps).toEqual({ v4: false, core: all(false) });
     });
+  });
+
+  it("ignores theme keys that third-party plugins add on older versions", () => {
+    // @tailwindcss/line-clamp adds `lineClamp`, size plugins add `size`, border-spacing plugins
+    // add `borderSpacing`: none of them may make 3.0 look newer.
+    const caps = detectCapabilities(fakeApi(common, ["lineClamp", "size", "borderSpacing"]));
+    expect(caps).toEqual({ v4: false, core: all(false) });
   });
 
   it("falls back to core plugin names when the theme lacks the markers", () => {
