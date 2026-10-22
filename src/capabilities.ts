@@ -19,12 +19,16 @@ export interface Capabilities {
  * Reports which logical utilities Tailwind core already generates, so this plugin never
  * shadows them.
  *
- * Tailwind v3 has no version API, so the minor version is inferred from markers introduced in
- * it: a default theme key (present whatever `corePlugins` says) or a core plugin name. Both are
- * checked because a restricted `corePlugins` list switches every probe plugin off. Guessing too
- * old would register `ms-*` next to core's, and duplicate registration makes arbitrary values
- * such as `ms-[3px]` ambiguous so that nothing is emitted. A user who disabled the feature
- * itself, e.g. `margin`, still gets `ms-*`/`me-*` from us.
+ * Tailwind v3 has no version API, so the minor version is inferred from core plugins introduced
+ * in it. A wrong guess costs differently per feature:
+ * - Too new loses classes, so theme keys (which plugins can add, e.g. `@tailwindcss/line-clamp`
+ *   adds `lineClamp`, size plugins add `size`) are never trusted on their own.
+ * - Too old for the static 3.1/3.4 utilities only duplicates an identical rule.
+ * - Too old for the 3.3 `matchUtilities` (`ms-*`, …) registers them twice, which makes arbitrary
+ *   values such as `ms-[3px]` ambiguous so nothing is emitted. A restricted `corePlugins` list
+ *   switches every probe off, so 3.3 is also recognised by a pair of default theme keys that
+ *   it introduced and that no plugin defines together.
+ * A user who disabled the feature itself, e.g. `margin`, gets `ms-*`/`me-*` from us.
  */
 export function detectCapabilities(api: PluginApi): Capabilities {
   const corePlugins = api.corePlugins;
@@ -47,16 +51,14 @@ export function detectCapabilities(api: PluginApi): Capabilities {
 
   const has = (name: string) => corePlugins(name) === true;
   const hasTheme = (key: string) => api.theme(key) !== undefined;
-  const at34 = hasTheme("size") || has("size") || has("textWrap") || has("contain");
+  const at34 = has("size") || has("textWrap") || has("contain");
   const at33 =
     at34 ||
-    hasTheme("lineClamp") ||
-    hasTheme("listStyleImage") ||
-    hasTheme("gradientColorStopPositions") ||
     has("lineClamp") ||
     has("hyphens") ||
-    has("listStyleImage");
-  const at31 = at33 || hasTheme("borderSpacing") || has("borderSpacing");
+    has("listStyleImage") ||
+    (hasTheme("gradientColorStopPositions") && hasTheme("listStyleImage"));
+  const at31 = at33 || has("borderSpacing");
 
   return {
     v4: false,

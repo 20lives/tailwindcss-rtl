@@ -19,7 +19,8 @@ export interface PluginApi {
   addComponents(rules: CssRules | CssRules[]): void;
   addUtilities(rules: CssRules | CssRules[]): void;
   matchUtilities(utilities: MatchFunctions, options?: MatchOptions): void;
-  theme(path: string): ThemeValues;
+  /** `undefined` for a key the theme does not define. */
+  theme(path: string): ThemeValues | undefined;
   /** Present on Tailwind v3 only. */
   corePlugins?: (name: string) => boolean;
 }
