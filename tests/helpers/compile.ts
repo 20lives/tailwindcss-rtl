@@ -16,7 +16,7 @@ export interface CompileOptions {
   /** Tailwind v4 only: return the complete stylesheet with its `@layer` blocks intact. */
   raw?: boolean;
   /** Tailwind v3 only: merged into the Tailwind config; `preflight` stays disabled. */
-  config?: { corePlugins?: Record<string, boolean>; [key: string]: unknown };
+  config?: { corePlugins?: Record<string, boolean> | string[]; [key: string]: unknown };
   /** Tailwind v3 only: replaces the default `[rtl]` plugin list (e.g. to test another build). */
   plugins?: unknown[];
   /** Tailwind v4 only: replaces the `@plugin` line; may hold several `@plugin` lines. */
@@ -65,7 +65,8 @@ async function compileV3(
       // plugin order, so surface them as an unused config key to keep compilations apart. A custom
       // plugin list cannot be serialised, so it gets a key that is unique per compilation.
       rtlOptions: opts.plugins ? ++customPluginRuns : (options ?? null),
-      corePlugins: { preflight: false, ...corePlugins },
+      // The list form enables only the named plugins, so preflight is already off.
+      corePlugins: Array.isArray(corePlugins) ? corePlugins : { preflight: false, ...corePlugins },
       plugins: opts.plugins ?? [options ? rtl(options) : rtl],
     }),
   ]).process(input, { from: undefined });

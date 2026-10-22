@@ -265,7 +265,31 @@ describe("tailwindcss 3.4 with a disabled core plugin", () => {
     });
     expect(out).toContain("margin-inline-start");
   });
+
+  it("generates ms-[3px] exactly once, from us, when margin is disabled", async () => {
+    const out = await compile("3.4", ["ms-[3px]"], undefined, {
+      config: { corePlugins: { margin: false } },
+    });
+    expect(rulesFor(out, "ms-[3px]")).toHaveLength(1);
+    expect(declarations(out, ".ms-\\[3px\\]")).toEqual({ "margin-inline-start": "3px" });
+  });
 });
+
+describe.each(["3.4", "3.2"] as const)(
+  "tailwindcss %s with a restricted corePlugins list",
+  (tw: TwVersion) => {
+    it("emits ms-4 and ms-[3px] once each, never ambiguous", async () => {
+      // On 3.4 core generates them; on 3.2 this plugin does. Every version probe plugin is off.
+      const out = await compile(tw, ["ms-4", "ms-[3px]"], undefined, {
+        config: { corePlugins: ["margin"] },
+      });
+      expect(rulesFor(out, "ms-4")).toHaveLength(1);
+      expect(rulesFor(out, "ms-[3px]")).toHaveLength(1);
+      expect(declarations(out, ".ms-4")).toEqual({ "margin-inline-start": "1rem" });
+      expect(declarations(out, ".ms-\\[3px\\]")).toEqual({ "margin-inline-start": "3px" });
+    });
+  },
+);
 
 describe.each(v3Versions)("tailwindcss %s translate-s/e", (tw: TwVersion) => {
   it("mirrors the x offset and sets the exact v3 transform", async () => {

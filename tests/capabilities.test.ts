@@ -1,17 +1,20 @@
 import { describe, expect, it } from "vitest";
-import type { PluginApi } from "../src/api.ts";
+import type { PluginApi, ThemeValues } from "../src/api.ts";
 import { detectCapabilities } from "../src/capabilities.ts";
 
 const none = (): void => undefined;
 
-/** A fake plugin API; `enabled` is the set of core plugins, or `undefined` for Tailwind v4. */
-function fakeApi(enabled?: string[]): PluginApi {
+/**
+ * A fake plugin API. `enabled` is the set of core plugins (`undefined` for Tailwind v4);
+ * `themeKeys` are the theme keys that resolve, the others return `undefined` like Tailwind v3.
+ */
+function fakeApi(enabled?: string[], themeKeys: string[] = []): PluginApi {
   return {
     addBase: none,
     addComponents: none,
     addUtilities: none,
     matchUtilities: none,
-    theme: () => ({}),
+    theme: (key) => (themeKeys.includes(key) ? {} : undefined) as ThemeValues,
     corePlugins: enabled && ((name) => enabled.includes(name)),
   };
 }
@@ -62,6 +65,45 @@ describe("detectCapabilities", () => {
 
   it("detects 3.4: core has everything", () => {
     expect(detectCapabilities(fakeApi(at34))).toEqual({ v4: false, core: all(true) });
+  });
+
+  describe("with a restricted corePlugins list", () => {
+    // Only `margin` stays enabled, so every core plugin used as a version probe is off.
+    const restricted = ["margin"];
+
+    const marginIsCore = (themeKeys: string[]) =>
+      detectCapabilities(fakeApi(restricted, themeKeys)).core.margin;
+
+    it("reads the version from theme markers", () => {
+      expect(marginIsCore([])).toBe(false);
+      expect(marginIsCore(["borderSpacing"])).toBe(false);
+      for (const marker of ["lineClamp", "listStyleImage", "gradientColorStopPositions", "size"]) {
+        expect(marginIsCore([marker]), marker).toBe(true);
+      }
+    });
+
+    it("detects 3.1 from the borderSpacing theme key", () => {
+      const caps = detectCapabilities(fakeApi(["textAlign"], ["borderSpacing"]));
+      expect(caps.core).toEqual({ ...all(false), textAlign: true });
+    });
+
+    it("detects 3.4 from the size theme key, so float and clear are core's", () => {
+      const caps = detectCapabilities(fakeApi(["margin", "float"], ["size"]));
+      expect(caps.core).toEqual({ ...all(false), margin: true, float: true });
+    });
+
+    it("still treats a disabled feature as missing on 3.4", () => {
+      const caps = detectCapabilities(fakeApi([], ["size"]));
+      expect(caps).toEqual({ v4: false, core: all(false) });
+    });
+  });
+
+  it("falls back to core plugin names when the theme lacks the markers", () => {
+    expect(detectCapabilities(fakeApi(at34, []))).toEqual({ v4: false, core: all(true) });
+    expect(detectCapabilities(fakeApi(at33, []))).toEqual({
+      v4: false,
+      core: { ...all(true), float: false, clear: false },
+    });
   });
 
   it("reports a disabled core plugin as missing so this plugin fills it in", () => {
