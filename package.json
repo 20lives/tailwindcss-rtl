@@ -52,7 +52,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "format": "biome check --write .",
-    "check": "publint && attw --pack .",
+    "check": "publint && attw --pack . && tsc -p tests/types/tsconfig.cjs.json",
     "prepublishOnly": "pnpm lint && pnpm typecheck && pnpm test && pnpm check"
   },
   "peerDependencies": {
