@@ -18,7 +18,6 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
-          cache: pnpm
       - run: pnpm install --frozen-lockfile
       - name: Verify tag matches package.json version
         run: test "v$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
