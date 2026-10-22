@@ -1,5 +1,6 @@
 import postcss from "postcss";
 import { beforeAll, describe, expect, it } from "vitest";
+import type { RtlOptions } from "../src/index.ts";
 import { compile, type TwVersion, versions } from "./helpers/compile.ts";
 
 /** Inventory A: gap-fillers for logical utilities that Tailwind core gained over time. */
@@ -135,7 +136,17 @@ function declarations(css: string, selector: string): Record<string, string> {
 function mirroredDeclarations(css: string, name: string) {
   const selector = `.${escapeClass(name)}`;
   const flat = declarations(css, `${selector}:where(:dir(rtl))`);
-  const nested = declarations(css, "&:where(:dir(rtl))");
+  let nested: Record<string, string> = {};
+  postcss.parse(css).walkRules((rule) => {
+    if (normalize(rule.selector) !== selector) return;
+    for (const child of rule.nodes) {
+      if (child.type === "rule" && child.selector === "&:where(:dir(rtl))") {
+        nested = Object.fromEntries(
+          child.nodes.flatMap((node) => (node.type === "decl" ? [[node.prop, node.value]] : [])),
+        );
+      }
+    }
+  });
   return {
     ltr: declarations(css, selector),
     rtl: Object.keys(flat).length > 0 ? flat : nested,
@@ -304,7 +315,7 @@ describe("tailwindcss 4 translate-s/e", () => {
 });
 
 describe.each(versions)("tailwindcss %s forms option", (tw: TwVersion) => {
-  const rulesOf = async (options?: { forms?: boolean | "base" | "class" }) =>
+  const rulesOf = async (options?: RtlOptions) =>
     allSelectors(await compile(tw, ["form-select"], options, { base: true }));
   const emitted = (selectors: string[]) =>
     Object.entries(FORMS_RULES)
@@ -326,6 +337,10 @@ describe.each(versions)("tailwindcss %s forms option", (tw: TwVersion) => {
 
   it("emits only the select rules for base", async () => {
     expect(emitted(await rulesOf({ forms: "base" }))).toEqual(["baseArrow", "baseReset"]);
+  });
+
+  it("ignores unknown values without throwing", async () => {
+    expect(emitted(await rulesOf({ forms: "x" as never }))).toEqual([]);
   });
 
   it("emits only the .form-select rules for class", async () => {
@@ -356,5 +371,26 @@ describe.each(v3Versions)("tailwindcss %s forms ordering", (tw: TwVersion) => {
     expect(selectors.indexOf(FORMS_RULES.baseReset)).toBeLessThan(
       selectors.indexOf(FORMS_RULES.classArrow),
     );
+  });
+});
+
+describe("tailwindcss 4 forms layers", () => {
+  it("puts the base rules in @layer base and the class rules in @layer utilities", async () => {
+    const css = await compile("4", ["form-select"], { forms: true }, { raw: true });
+    const layerOf = (selector: string): string[] => {
+      const layers: string[] = [];
+      postcss.parse(css).walkRules((rule) => {
+        if (normalize(rule.selector) !== selector) return;
+        const layer = rule.parent;
+        if (layer?.type === "atrule" && (layer as postcss.AtRule).name === "layer") {
+          layers.push((layer as postcss.AtRule).params);
+        }
+      });
+      return layers;
+    };
+    expect(layerOf(FORMS_RULES.baseArrow)).toEqual(["base"]);
+    expect(layerOf(FORMS_RULES.baseReset)).toEqual(["base"]);
+    expect(layerOf(FORMS_RULES.classArrow)).toEqual(["utilities"]);
+    expect(layerOf(FORMS_RULES.classReset)).toEqual(["utilities"]);
   });
 });

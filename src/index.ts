@@ -16,7 +16,7 @@ export interface RtlPlugin {
   __isOptionsFunction: true;
 }
 
-const rtl = plugin.withOptions<RtlOptions | undefined>((options) => (api) => {
+const rtl = plugin.withOptions<RtlOptions>((options) => (api) => {
   const caps = detectCapabilities(api);
   addLogicalUtilities(api, caps);
   addPluginOnlyUtilities(api, caps);

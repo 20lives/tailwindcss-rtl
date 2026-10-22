@@ -13,6 +13,8 @@ export interface CompileOptions {
   theme?: string;
   /** Also return the base and components layers, not just utilities. */
   base?: boolean;
+  /** Tailwind v4 only: return the complete stylesheet with its `@layer` blocks intact. */
+  raw?: boolean;
   /** Tailwind v3 only: merged into the Tailwind config; `preflight` stays disabled. */
   config?: { corePlugins?: Record<string, boolean>; [key: string]: unknown };
 }
@@ -79,6 +81,8 @@ async function compileV4(
   ].join("\n");
 
   const result = await postcss([tailwindV4()]).process(input, { from: `${root}input.css` });
+
+  if (opts.raw) return result.css;
 
   // Keep only the layers the plugin writes to; `@property` and `@layer properties` are noise.
   const layers = opts.base ? ["base", "components", "utilities"] : ["utilities"];
