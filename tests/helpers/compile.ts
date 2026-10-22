@@ -17,7 +17,13 @@ export interface CompileOptions {
   raw?: boolean;
   /** Tailwind v3 only: merged into the Tailwind config; `preflight` stays disabled. */
   config?: { corePlugins?: Record<string, boolean>; [key: string]: unknown };
+  /** Tailwind v3 only: replaces the default `[rtl]` plugin list (e.g. to test another build). */
+  plugins?: unknown[];
+  /** Tailwind v4 only: replaces the `@plugin` line; may hold several `@plugin` lines. */
+  pluginCss?: string;
 }
+
+let customPluginRuns = 0;
 
 const require = createRequire(import.meta.url);
 const root = fileURLToPath(new URL("../..", import.meta.url));
@@ -55,11 +61,12 @@ async function compileV3(
     tailwind({
       content: [{ raw: classes.join(" ") }],
       ...config,
-      // Tailwind v3 reuses a context for identical configs and does not hash plugin options, so
-      // surface them as an unused config key to keep compilations with different options apart.
-      rtlOptions: options ?? null,
+      // Tailwind v3 reuses a context for identical configs and does not hash plugin options or
+      // plugin order, so surface them as an unused config key to keep compilations apart. A custom
+      // plugin list cannot be serialised, so it gets a key that is unique per compilation.
+      rtlOptions: opts.plugins ? ++customPluginRuns : (options ?? null),
       corePlugins: { preflight: false, ...corePlugins },
-      plugins: [options ? rtl(options) : rtl],
+      plugins: opts.plugins ?? [options ? rtl(options) : rtl],
     }),
   ]).process(input, { from: undefined });
   return result.css;
@@ -76,7 +83,8 @@ async function compileV4(
   const input = [
     '@import "tailwindcss" source(none);',
     opts.theme ? `@theme { ${opts.theme} }` : "",
-    pluginOptions ? `@plugin "${pluginPath}" { ${pluginOptions} }` : `@plugin "${pluginPath}";`,
+    opts.pluginCss ??
+      (pluginOptions ? `@plugin "${pluginPath}" { ${pluginOptions} }` : `@plugin "${pluginPath}";`),
     `@source inline("${classes.join(" ")}");`,
   ].join("\n");
 
