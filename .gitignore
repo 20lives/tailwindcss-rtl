@@ -1,3 +1,5 @@
-/node_modules
+node_modules
+dist
+coverage
+*.log
 package-lock.json
-yarn-error.log

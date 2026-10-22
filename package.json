@@ -1,28 +1,76 @@
 {
   "name": "tailwindcss-rtl",
-  "version": "0.9.0",
-  "main": "src/index.js",
-  "repository": "https://github.com/20lives/tailwindcss-rtl",
-  "scripts": {
-    "lint": "eslint ./src",
-    "test": "jest",
-    "build": "tailwindcss build -c src/tailwind.config.js -o dist/tailwindcss-rtl.css"
-  },
+  "version": "1.0.0",
+  "description": "Right-to-left (RTL) and logical-direction utilities for Tailwind CSS v3 and v4",
   "keywords": [
     "tailwind",
     "tailwindcss",
     "rtl",
-    "tailwind plugin"
+    "tailwind plugin",
+    "logical properties",
+    "i18n"
   ],
   "author": "20lives",
   "license": "MIT",
-  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/20lives/tailwindcss-rtl.git"
+  },
+  "homepage": "https://github.com/20lives/tailwindcss-rtl#readme",
+  "bugs": {
+    "url": "https://github.com/20lives/tailwindcss-rtl/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "build": "tsdown",
+    "test": "pnpm build && vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "check": "publint && attw --pack .",
+    "prepublishOnly": "pnpm lint && pnpm typecheck && pnpm test && pnpm check"
+  },
   "peerDependencies": {
-    "tailwindcss": ">=2.0.0 || >=3.0.0"
+    "tailwindcss": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
-    "jest": "^27.2.4",
-    "postcss": "^8.2.4",
-    "tailwindcss": "^3.0.0"
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@biomejs/biome": "^2.6.2",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24",
+    "postcss": "^8.5",
+    "publint": "^0.3.25",
+    "tailwindcss": "^4.3.3",
+    "tailwindcss-v3-0": "npm:tailwindcss@3.0.24",
+    "tailwindcss-v3-2": "npm:tailwindcss@3.2.7",
+    "tailwindcss-v3-3": "npm:tailwindcss@3.3.7",
+    "tailwindcss-v3-4": "npm:tailwindcss@^3.4.19",
+    "tsdown": "^0.23.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
   }
 }
