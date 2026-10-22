@@ -1,4 +1,4 @@
-import plugin from "tailwindcss/plugin";
+import plugin from "tailwindcss/plugin.js";
 import { detectCapabilities } from "./capabilities.ts";
 import { addFormsRtl } from "./forms.ts";
 import { addLogicalUtilities } from "./logical.ts";
